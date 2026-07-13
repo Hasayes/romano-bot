@@ -20,6 +20,7 @@ Optional:
 import json
 import os
 import sys
+import unicodedata
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -169,6 +170,29 @@ def fetch_articles():
     return out
 
 
+def _norm(s):
+    """Lowercase, strip accents and extra spaces so outlet spellings match."""
+    s = unicodedata.normalize("NFKD", s)
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return " ".join(s.lower().replace(".", " ").split())
+
+
+def deal_key(brief):
+    """One key per move so several outlets covering it produce one message.
+
+    Keyed on surname (outlets vary first-name forms: 'Kyran Thompson' vs
+    'K. Thompson') + destination club. Returns None when the player is
+    unknown — a '—' placeholder must not glue unrelated deals together.
+    """
+    player = _norm(brief.player)
+    if not player or player == "—":
+        return None
+    club = _norm(brief.to_club)
+    for suffix in (" fc", " cf", " afc"):
+        club = club.removesuffix(suffix)
+    return f"{player.split()[-1]} -> {club}"
+
+
 def is_transfer(article):
     """Cheap keyword prefilter so we only spend Claude calls on likely deals."""
     text = f"{article['title']} {article['desc']}".lower()
@@ -193,16 +217,19 @@ def brief_article(client, article):
 
 
 def load_state():
+    state = {"sent": [], "deals": []}
     if STATE_FILE.exists():
         try:
-            return json.loads(STATE_FILE.read_text())
+            state.update(json.loads(STATE_FILE.read_text()))
         except json.JSONDecodeError:
             pass
-    return {"sent": []}
+    state.setdefault("deals", [])
+    return state
 
 
 def save_state(state):
     state["sent"] = state["sent"][-MAX_STATE:]
+    state["deals"] = state["deals"][-MAX_STATE:]
     STATE_FILE.write_text(json.dumps(state, indent=2))
 
 
@@ -249,6 +276,7 @@ def _esc(s):
 def main():
     state = load_state()
     seen = set(state["sent"])
+    deals = set(state["deals"])
     client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the env
     try:
         articles = fetch_articles()
@@ -274,9 +302,16 @@ def main():
         if not brief.is_transfer:
             print(f"skipped (not a confirmed transfer): {article['title']}")
             continue
+        key = deal_key(brief)
+        if key and key in deals:
+            print(f"skipped (deal already sent, {key}): {article['title']}")
+            continue
         result = send_telegram(article, brief)
         if result.get("ok"):
             sent_count += 1
+            if key:
+                deals.add(key)
+                state["deals"].append(key)
             print(f"sent: {brief.player} — {brief.from_club} -> {brief.to_club}")
         else:
             print(f"telegram error: {result}", file=sys.stderr)
