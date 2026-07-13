@@ -70,6 +70,8 @@ class TransferBrief(BaseModel):
 
     is_transfer: bool  # true only for a confirmed/official/"here we go" move
     player: str        # the player involved
+    position: str      # playing position, e.g. "Right winger" (or "—")
+    age: str           # age in years, e.g. "21" (or "—" if unknown)
     from_club: str     # selling club (or "—" if unknown)
     to_club: str       # buying club (or "—" if unknown)
     fee: str           # reported fee, "Free transfer", "Loan", or "Undisclosed"
@@ -86,6 +88,10 @@ BRIEF_SYSTEM = (
     "contract extensions, or anything not yet done.\n"
     "- fee: use the reported figure if stated (e.g. '€45m'); otherwise "
     "'Free transfer', 'Loan', or 'Undisclosed'. Never invent a number.\n"
+    "- position: the player's playing position (e.g. 'Right winger', "
+    "'Centre-back'), from the article or your knowledge; '—' if unknown.\n"
+    "- age: the player's age in years as a number; use the age stated in the "
+    "article, else your best-known age for the player, else '—'.\n"
     "- style: one concise sentence on the player's playing style.\n"
     "- fit: one concise sentence on how he should be used / why he fits the "
     "new club. Base style and fit on your football knowledge of the player.\n"
@@ -182,8 +188,12 @@ def send_telegram(article, brief):
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     move = f"{_esc(brief.from_club)} → {_esc(brief.to_club)}"
-    text = (
-        f"⚽️ <b>{_esc(brief.player)}</b>\n"
+    # "Right winger · 21" — drop whichever part is unknown, skip the line if both are
+    bits = [b for b in (brief.position, brief.age) if b and b.strip() not in ("", "—")]
+    text = f"⚽️ <b>{_esc(brief.player)}</b>\n"
+    if bits:
+        text += f"📍 {_esc(' · '.join(bits))}\n"
+    text += (
         f"🔄 {move}\n"
         f"💰 <b>Fee:</b> {_esc(brief.fee)}\n"
         f"🎮 <b>Style:</b> {_esc(brief.style)}\n"
