@@ -4,8 +4,12 @@ Telegram bot that forwards **confirmed transfers and "HERE WE GO"** posts about
 Fabrizio Romano to your chat. Polls a free news API on a schedule; no server to
 run.
 
+Follows: **Fabrizio Romano, David Ornstein, Gianluca Di Marzio, Matteo Moretto,
+David Amoyal, Florian Plettenberg**.
+
 ## How it works
-1. `romano_bot.py` queries a news API for `"Fabrizio Romano"`.
+1. `romano_bot.py` queries a news API for those journalists (one combined OR
+   query per poll to stay within the free-tier request budget).
 2. Keeps only items whose title/description mention a transfer keyword
    (`here we go`, `confirmed`, `official`, `medical`, `signs`, ...).
 3. Sends new items to your Telegram chat and records their IDs in `state.json`
@@ -44,4 +48,5 @@ The workflow (`.github/workflows/poll.yml`) then runs every 15 min and commits
 ## Tuning
 - Edit `KEYWORDS` in `romano_bot.py` to widen/narrow what counts as a transfer.
 - Change the `cron:` line in the workflow for a different interval.
-- Set `JOURNALIST` to follow someone else (e.g. `David Ornstein`).
+- Set `NEWS_QUERY` to change who's followed (newsdata.io free tier: max 100
+  chars, so use surnames).

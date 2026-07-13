@@ -37,7 +37,22 @@ KEYWORDS = [
     "joins",
 ]
 
-JOURNALIST = os.environ.get("JOURNALIST", "Fabrizio Romano")
+# Journalists we follow (for reference / display). The actual API search uses
+# NEWS_QUERY below. NOTE: newsdata.io's free tier caps the q string at 100
+# chars, so Romano is fully qualified and the rest use their (distinctive)
+# surnames to stay under the limit while still matching.
+JOURNALISTS = [
+    "Fabrizio Romano",
+    "David Ornstein",
+    "Gianluca Di Marzio",
+    "Matteo Moretto",
+    "David Amoyal",
+    "Florian Plettenberg",
+]
+NEWS_QUERY = os.environ.get(
+    "NEWS_QUERY",
+    '"Fabrizio Romano" OR Ornstein OR "Di Marzio" OR Moretto OR Amoyal OR Plettenberg',
+)
 PROVIDER = os.environ.get("NEWS_PROVIDER", "newsdata").lower()
 STATE_FILE = Path(os.environ.get("STATE_FILE", Path(__file__).with_name("state.json")))
 MAX_STATE = 500  # cap remembered IDs so state.json doesn't grow forever
@@ -53,7 +68,7 @@ def fetch_articles():
     """Return a list of {id, title, desc, url, source} from the news provider."""
     key = os.environ["NEWS_API_KEY"]
     if PROVIDER == "gnews":
-        q = urllib.parse.quote(f'"{JOURNALIST}"')
+        q = urllib.parse.quote(NEWS_QUERY)
         url = (
             f"https://gnews.io/api/v4/search?q={q}&lang=en&max=25"
             f"&sortby=publishedAt&apikey={key}"
@@ -71,7 +86,7 @@ def fetch_articles():
         return out
 
     # default: newsdata.io
-    q = urllib.parse.quote(f'"{JOURNALIST}"')
+    q = urllib.parse.quote(NEWS_QUERY)
     url = (
         f"https://newsdata.io/api/1/news?apikey={key}&q={q}"
         f"&language=en&category=sports"
