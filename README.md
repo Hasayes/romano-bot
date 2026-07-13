@@ -11,10 +11,24 @@ David Amoyal, Florian Plettenberg**.
 1. `romano_bot.py` queries a news API for those journalists (one combined OR
    query per poll to stay within the free-tier request budget).
 2. Keeps only items whose title/description mention a transfer keyword
-   (`here we go`, `confirmed`, `official`, `medical`, `signs`, ...).
-3. Sends new items to your Telegram chat and records their IDs in `state.json`
-   so nothing is sent twice.
-4. A GitHub Actions cron runs it every 15 minutes (free, always-on).
+   (`here we go`, `confirmed`, `official`, `medical`, `signs`, ...) — a cheap
+   prefilter before spending a Claude call.
+3. Passes each candidate to **Claude** (`claude-opus-4-8`), which confirms it's
+   a real completed transfer and returns a structured briefing: player, clubs,
+   fee, style of play, and how he fits the new team.
+4. Sends the briefing to your Telegram chat and records the article ID in
+   `state.json` so nothing is processed twice.
+5. A GitHub Actions cron runs it every 15 minutes (free, always-on).
+
+Each message looks like:
+
+```
+⚽️ Player Name
+🔄 Selling Club → Buying Club
+💰 Fee: €45m
+🎮 Style: ...
+🧩 Fit: ...
+```
 
 ## One-time setup
 
@@ -24,6 +38,8 @@ David Amoyal, Florian Plettenberg**.
   `https://api.telegram.org/bot<TOKEN>/getUpdates` and read `result[].message.chat.id`.
 - **News API key** — free tier at https://newsdata.io (200/day) or
   https://gnews.io (100/day). For GNews set `NEWS_PROVIDER=gnews`.
+- **Anthropic API key** — from https://console.anthropic.com (for the briefing
+  step). Cost is a fraction of a cent per confirmed transfer.
 
 ### 2. Test locally
 ```bash
@@ -38,6 +54,7 @@ Actions** add repository **secrets**:
 - `TELEGRAM_BOT_TOKEN`
 - `TELEGRAM_CHAT_ID`
 - `NEWS_API_KEY`
+- `ANTHROPIC_API_KEY`
 
 (Optional) add a **variable** `NEWS_PROVIDER` = `gnews` to switch providers.
 
