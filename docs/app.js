@@ -178,4 +178,4 @@ $("#s-interest").addEventListener("change", (e) =>
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 loadFeed();
 setInterval(loadFeed, 5 * 60 * 1000); // refresh while open
-$("#version").textContent = "v1.0";
+$("#version").textContent = "ShimShim v2.0";

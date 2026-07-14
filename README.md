@@ -4,7 +4,7 @@ Telegram bot + **web app** that forward **confirmed transfers, "HERE WE GO"
 calls, and big-club interest** from top transfer journalists. Polls a free news
 API on a schedule; no server to run.
 
-**App:** https://hasayes.github.io/romano-bot/ — installable PWA (iPhone:
+**App — ShimShim:** https://hasayes.github.io/romano-bot/ — installable PWA (iPhone:
 Share → Add to Home Screen) with the full card feed, club/stage filters,
 per-player timelines, and Web Push notifications. Served from `docs/` by
 GitHub Pages; the poller commits each card to `docs/feed.json` and pushes to
