@@ -1,10 +1,10 @@
-# Romano transfer bot
+# ShimShim
 
 Telegram bot + **web app** that forward **confirmed transfers, "HERE WE GO"
 calls, and big-club interest** from top transfer journalists. Polls a free news
 API on a schedule; no server to run.
 
-**App — ShimShim:** https://hasayes.github.io/romano-bot/ — installable PWA (iPhone:
+**App — ShimShim:** https://hasayes.github.io/shimshim-bot/ — installable PWA (iPhone:
 Share → Add to Home Screen) with the full card feed, club/stage filters,
 per-player timelines, and Web Push notifications. Served from `docs/` by
 GitHub Pages; the poller commits each card to `docs/feed.json` and pushes to
@@ -15,7 +15,7 @@ Follows: **Fabrizio Romano, David Ornstein, Gianluca Di Marzio, Matteo Moretto,
 David Amoyal, Florian Plettenberg**.
 
 ## How it works
-1. `romano_bot.py` queries a news API for those journalists (one combined OR
+1. `shimshim_bot.py` queries a news API for those journalists (one combined OR
    query per poll to stay within the free-tier request budget).
 2. Keeps only items whose title/description mention a transfer keyword
    (`here we go`, `confirmed`, `official`, `medical`, `signs`, ...) — a cheap
@@ -54,7 +54,7 @@ Each message looks like:
 ```bash
 cp .env.example .env      # fill in the three values
 set -a; source .env; set +a
-python3 romano_bot.py
+python3 shimshim_bot.py
 ```
 
 ### 3. Deploy to GitHub Actions
@@ -69,10 +69,10 @@ Actions** add repository **secrets**:
 
 The workflow (`.github/workflows/poll.yml`) then runs every 15 min and commits
 `state.json` updates back to the repo. Trigger a first run manually from the
-**Actions** tab → *Romano transfer bot* → *Run workflow*.
+**Actions** tab → *ShimShim bot* → *Run workflow*.
 
 ## Tuning
-- Edit `KEYWORDS` in `romano_bot.py` to widen/narrow what counts as a transfer.
+- Edit `KEYWORDS` in `shimshim_bot.py` to widen/narrow what counts as a transfer.
 - Change the `cron:` line in the workflow for a different interval.
 - Set `NEWS_QUERY` to change who's followed (newsdata.io free tier: max 100
   chars, so use surnames).

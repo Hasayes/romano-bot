@@ -1,4 +1,4 @@
-name: Romano transfer bot
+name: ShimShim bot
 
 on:
   schedule:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: romano-bot
+  group: shimshim-bot
   cancel-in-progress: false
 
 jobs:
@@ -40,12 +40,12 @@ jobs:
             echo "$VAPID_PRIVATE_KEY_PEM" > "$RUNNER_TEMP/vapid.pem"
             export VAPID_PEM_FILE="$RUNNER_TEMP/vapid.pem"
           fi
-          python romano_bot.py
+          python shimshim_bot.py
 
       - name: Persist state
         run: |
           if [[ -n "$(git status --porcelain state.json docs/feed.json)" ]]; then
-            git config user.name "romano-bot"
+            git config user.name "shimshim-bot"
             git config user.email "bot@users.noreply.github.com"
             git add state.json docs/feed.json
             git commit -m "update state [skip ci]"
