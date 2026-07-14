@@ -30,8 +30,8 @@ jobs:
           print("player:", brief.player, "| age:", brief.age)
           print("from:", brief.from_club, "->", brief.to_club)
           print("fee:", brief.fee, "| source:", brief.source)
-          assert "aston villa" in brief.from_club.lower() or brief.from_club == "—", \
-              f"WRONG from_club: {brief.from_club}"
-          assert brief.age in ("29", "—", ""), f"WRONG age: {brief.age}"
-          print("VERIFIED: from_club and age are correct")
+          assert "tielemans" in brief.player.lower(), f"WRONG player: {brief.player}"
+          assert "aston villa" in brief.from_club.lower(), f"WRONG from_club: {brief.from_club}"
+          assert brief.age in ("29", "—"), f"WRONG age: {brief.age}"
+          print("VERIFIED: player, from_club and age are correct")
           EOF

@@ -167,15 +167,29 @@ class TransferBrief(BaseModel):
     source: str        # journalist/outlet credited with the report (or "—")
 
 
+RESEARCH_SYSTEM = (
+    "You are a football transfer fact-checker. Given a headline and summary "
+    "about a possible transfer, use web search to verify:\n"
+    "1. Is this a completed/effectively-done deal (here we go / medical / "
+    "official), rumour-stage interest, or something else entirely?\n"
+    "2. The player's full name, the club he is CURRENTLY leaving in this "
+    "deal (not a former club — squads change, your memory is stale), his "
+    "age today, and his position.\n"
+    "3. The buying or interested club(s).\n"
+    "4. The reported fee.\n"
+    "5. The journalist/outlet credited with the story.\n"
+    "Reply with concise bullet-point findings. Explicitly mark any fact you "
+    "could not verify as UNVERIFIED. Never guess from memory."
+)
+
+
 BRIEF_SYSTEM = (
     "You are a football transfer analyst. You receive a news headline and "
-    "summary about a possible transfer. Classify it and extract a briefing.\n"
-    "VERIFY BEFORE ANSWERING: your training knowledge of squads is stale — "
-    "players move and ages change. Use web search to confirm the player's "
-    "CURRENT club (the one he is leaving in this deal, not a former club), "
-    "his age today, his position, and the deal's fee and stage. Trust search "
-    "results and the article over your memory. Any fact you cannot verify "
-    "must be '—' (or 'Undisclosed' for the fee) — never a guess.\n"
+    "summary about a possible transfer, plus research notes verified via "
+    "live web search. Classify the story and extract a briefing.\n"
+    "Trust the research notes and the article over your training memory — "
+    "squads change. Any fact marked UNVERIFIED in the notes or absent from "
+    "them must be '—' (or 'Undisclosed' for the fee) — never a guess.\n"
     "- kind='deal' when it reports a transfer that is done or effectively "
     "done: a completed or officially announced signing; a 'here we go' call; "
     "a total/full agreement reached between all parties; a medical that is "
@@ -191,8 +205,8 @@ BRIEF_SYSTEM = (
     "- stage: for kind='deal' the furthest stage the article supports — "
     "'Here we go', 'Medical', or 'Completed' (use 'Completed' for "
     "official/announced/done deals); '—' otherwise.\n"
-    "- from_club: the club the player is leaving in this deal, verified via "
-    "web search; '—' if unknown. "
+    "- from_club: the club the player is leaving in this deal, per the "
+    "research notes; '—' if unknown. "
     "to_club: the buying club; for kind='interest', the watched club(s) "
     "pursuing him, comma-separated if several.\n"
     "- fee: use the reported figure, bid or asking price if stated (e.g. "
@@ -201,7 +215,7 @@ BRIEF_SYSTEM = (
     "- position: the player's playing position (e.g. 'Right winger', "
     "'Centre-back'), from the article or your knowledge; '—' if unknown.\n"
     "- age: the player's CURRENT age in years as a number, from the article "
-    "or verified via web search; '—' if unverifiable.\n"
+    "or the research notes; '—' if unverified.\n"
     "- style: one concise sentence on the player's playing style.\n"
     "- fit: one concise sentence on how he should be used / why he fits the "
     "new club. Base style and fit on your football knowledge of the player.\n"
@@ -331,20 +345,44 @@ def is_relevant(article):
 
 
 def brief_article(client, article):
-    """Ask Claude for a structured briefing. Returns a TransferBrief or None."""
+    """Fact-check the article with web search, then extract a briefing.
+
+    Two calls on purpose: combining the server-side web search tool with
+    parsed structured output in a single request scrambles the parsed
+    fields, so research and extraction are separated.
+    """
     prompt = (
         f"Headline: {article['title']}\n"
         f"Summary: {article['desc']}\n"
         f"Source: {article['source']}"
     )
-    resp = client.messages.parse(
+    messages = [{"role": "user", "content": prompt}]
+    tools = [{"type": "web_search_20260209", "name": "web_search", "max_uses": 3}]
+    research = client.messages.create(
         model=CLAUDE_MODEL,
         max_tokens=4096,
+        system=RESEARCH_SYSTEM,
+        messages=messages,
+        tools=tools,
+    )
+    if research.stop_reason == "pause_turn":  # server tool loop paused; resume once
+        research = client.messages.create(
+            model=CLAUDE_MODEL,
+            max_tokens=4096,
+            system=RESEARCH_SYSTEM,
+            messages=messages + [{"role": "assistant", "content": research.content}],
+            tools=tools,
+        )
+    notes = "\n".join(b.text for b in research.content if b.type == "text")
+
+    resp = client.messages.parse(
+        model=CLAUDE_MODEL,
+        max_tokens=1024,
         system=BRIEF_SYSTEM,
-        messages=[{"role": "user", "content": prompt}],
-        # Server-side web search: facts (current club, age, fee, stage) are
-        # verified live instead of trusted to stale training knowledge.
-        tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 3}],
+        messages=[{
+            "role": "user",
+            "content": f"{prompt}\n\nResearch notes (verified via web search):\n{notes}",
+        }],
         output_format=TransferBrief,
     )
     return resp.parsed_output
