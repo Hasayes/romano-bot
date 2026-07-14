@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Romano Transfers</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Romano">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>⚽️ Romano Transfers</h1>
+  <nav>
+    <button data-tab="feed" class="active">Feed</button>
+    <button data-tab="players">Players</button>
+    <button data-tab="settings">Settings</button>
+  </nav>
+</header>
+<main>
+  <section id="tab-feed" class="tab active">
+    <div class="filters">
+      <select id="f-kind">
+        <option value="">All types</option>
+        <option value="deal">⚽️ Deals</option>
+        <option value="interest">👀 Interest</option>
+      </select>
+      <select id="f-stage">
+        <option value="">All stages</option>
+        <option value="Here we go">Here we go</option>
+        <option value="Medical">Medical</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <select id="f-club">
+        <option value="">All clubs</option>
+      </select>
+      <input id="f-search" type="search" placeholder="Search player, club, journalist…">
+    </div>
+    <div id="cards"></div>
+    <p id="feed-empty" class="empty" hidden>No items match. New cards appear here as the bot finds them.</p>
+  </section>
+
+  <section id="tab-players" class="tab">
+    <div id="player-detail" hidden>
+      <button id="player-back" class="back">← All players</button>
+      <div id="player-timeline"></div>
+    </div>
+    <div id="player-list"></div>
+  </section>
+
+  <section id="tab-settings" class="tab">
+    <h2>Notifications</h2>
+    <p class="hint">Install the app first (Share → Add to Home Screen), then enable notifications from inside the installed app.</p>
+    <button id="push-btn">Enable notifications</button>
+    <div id="push-result" hidden>
+      <p class="hint">Almost done — send this code to Claude (or paste it into the repo's <code>PUSH_SUBSCRIPTIONS</code> secret as a JSON array) to finish pairing:</p>
+      <textarea id="push-sub" readonly rows="5"></textarea>
+      <button id="push-copy">Copy</button>
+    </div>
+    <p id="push-status" class="hint"></p>
+
+    <h2>Display</h2>
+    <label class="row"><input type="checkbox" id="s-interest" checked> Show interest cards in feed</label>
+
+    <h2>About</h2>
+    <p class="hint">Sources: Fabrizio Romano, David Ornstein, Gianluca Di Marzio, Matteo Moretto, David Amoyal, Florian Plettenberg — via newsdata.io, briefed by Claude.</p>
+    <p class="hint">Interest alerts cover: Real Madrid, Barcelona, Atlético Madrid, Arsenal, Chelsea, Liverpool, Man City, Man United, Tottenham, Bayern, Dortmund, PSG, Juventus, Inter, Milan, Napoli. To change what's monitored, ask Claude — it edits the bot.</p>
+    <p class="hint" id="version"></p>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

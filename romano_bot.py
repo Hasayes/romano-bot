@@ -27,6 +27,7 @@ import sys
 import unicodedata
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal
 
@@ -142,6 +143,11 @@ NEWSDATA_PAGES = int(os.environ.get("NEWSDATA_PAGES", "2"))
 CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL", "claude-opus-4-8")
 STATE_FILE = Path(os.environ.get("STATE_FILE", Path(__file__).with_name("state.json")))
 MAX_STATE = 500  # cap remembered IDs so state.json doesn't grow forever
+
+# The PWA (served from docs/ via GitHub Pages) reads this feed; every card
+# that goes to Telegram is also appended here, newest first.
+FEED_FILE = Path(os.environ.get("FEED_FILE", Path(__file__).with_name("docs") / "feed.json"))
+MAX_FEED = 500
 
 
 class TransferBrief(BaseModel):
@@ -402,6 +408,69 @@ def _esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def append_feed(article, brief):
+    """Prepend this card to the JSON feed the PWA reads."""
+    feed = []
+    if FEED_FILE.exists():
+        try:
+            feed = json.loads(FEED_FILE.read_text())
+        except json.JSONDecodeError:
+            pass
+    feed.insert(0, {
+        "id": article["id"],
+        "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "kind": brief.kind,
+        "stage": brief.stage,
+        "player": brief.player,
+        "position": brief.position,
+        "age": brief.age,
+        "from_club": brief.from_club,
+        "to_club": brief.to_club,
+        "fee": brief.fee,
+        "style": brief.style,
+        "fit": brief.fit,
+        "source": brief.source,
+        "outlet": article["source"],
+        "url": article["url"],
+        "title": article["title"],
+    })
+    FEED_FILE.parent.mkdir(parents=True, exist_ok=True)
+    FEED_FILE.write_text(json.dumps(feed[:MAX_FEED], indent=1))
+
+
+def send_web_push(article, brief):
+    """Push the card to every subscribed browser (the installed PWA).
+
+    Subscriptions live in the PUSH_SUBSCRIPTIONS secret (JSON array) rather
+    than the repo — the repo is public and endpoints shouldn't be. No-op
+    until the secret and VAPID key are configured.
+    """
+    subs_raw = os.environ.get("PUSH_SUBSCRIPTIONS", "")
+    pem_file = os.environ.get("VAPID_PEM_FILE", "")
+    if not subs_raw or not pem_file:
+        return
+    try:
+        from pywebpush import webpush, WebPushException
+    except ImportError:
+        print("pywebpush not installed; skipping web push", file=sys.stderr)
+        return
+    if brief.kind == "interest":
+        title = f"👀 {brief.to_club} interested in {brief.player}"
+    else:
+        title = f"⚽️ {brief.player} → {brief.to_club} · {brief.stage}"
+    payload = json.dumps({
+        "title": title,
+        "body": " · ".join(x for x in (brief.fee, brief.source) if x.strip() not in ("", "—")),
+        "url": article["url"] or "./",
+    })
+    for sub in json.loads(subs_raw):
+        try:
+            webpush(sub, payload, vapid_private_key=pem_file,
+                    vapid_claims={"sub": "mailto:yuval0156@gmail.com"})
+        except WebPushException as e:
+            print(f"web push error: {e}", file=sys.stderr)
+
+
 def main():
     state = load_state()
     seen = set(state["sent"])
@@ -451,6 +520,11 @@ def main():
                     state["interest"].append(k)
             elif key:
                 deals[key] = stage_rank(brief)
+            try:  # app outputs must never block the Telegram path
+                append_feed(article, brief)
+                send_web_push(article, brief)
+            except Exception as e:  # noqa: BLE001
+                print(f"app feed/push error: {e}", file=sys.stderr)
             print(f"sent ({brief.kind}): {brief.player} — "
                   f"{brief.from_club} -> {brief.to_club}")
         else:
