@@ -53,7 +53,18 @@
     "89383e351c17912a3423c568f6c07d89",
     "69ded94456611a0f5b9260ed27c5ed39",
     "14ef17099a2a39c7f5444ba8a24e9fcd",
-    "c2c16ef24bd8420ea245cad8a5a93d2d"
+    "c2c16ef24bd8420ea245cad8a5a93d2d",
+    "3f44a92d764374b67dc0f56d7bc16cf6",
+    "30103be4ededd43fd6fb965257e4052a",
+    "aed1dca3f3fd942b7611bcc5facdc68c",
+    "69ec9cc8c7f4883006e84c431cd53828",
+    "62c9b85fff3fc715a7095c1bb695be50",
+    "0f7bcf1a9abf0c045031e7fc6266ee62",
+    "515530bf143cf8475f580e11845097ec",
+    "f55500fec8db677ac1295eb175b558dc",
+    "1c6880584160169f6bc5d66092e7f856",
+    "76f46be1658946c7d81ccd244ea9af59",
+    "3e312b85509adcedb0c4f7356165dc33"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -61,7 +72,8 @@
     "tielemans -> manchester united": 2,
     "vuskovic -> \u2014": 3,
     "digne -> \u2014": 1,
-    "santos -> manchester united": 3
+    "santos -> manchester united": 3,
+    "caicedo -> barcelona": 3
   },
   "interest": [
     "interest: alvarez -> arsenal",
@@ -74,6 +86,11 @@
     "interest: barcola -> arsenal",
     "interest: fresneda -> chelsea",
     "interest: digne -> psg",
-    "interest: svilar -> juventus"
+    "interest: svilar -> juventus",
+    "interest: tzolis -> arsenal",
+    "interest: stones -> inter",
+    "interest: kone -> manchester united",
+    "interest: hall -> manchester united",
+    "interest: williams -> tottenham"
   ]
 }
