@@ -18,23 +18,19 @@
   <h1>⚽️ ShimShim</h1>
   <nav>
     <button data-tab="feed" class="active">Feed</button>
-    <button data-tab="players">Players</button>
+    <button data-tab="clubs">Clubs</button>
     <button data-tab="settings">Settings</button>
   </nav>
 </header>
 <main>
   <section id="tab-feed" class="tab active">
     <div class="filters">
-      <select id="f-kind">
-        <option value="">All types</option>
-        <option value="deal">⚽️ Deals</option>
-        <option value="interest">👀 Interest</option>
-      </select>
       <select id="f-stage">
         <option value="">All stages</option>
-        <option value="Here we go">Here we go</option>
-        <option value="Medical">Medical</option>
-        <option value="Completed">Completed</option>
+        <option value="rumour">👀 Rumours</option>
+        <option value="Here we go">🚦 Here we go</option>
+        <option value="Medical">🩺 Medical</option>
+        <option value="Completed">✅ Completed</option>
       </select>
       <select id="f-club">
         <option value="">All clubs</option>
@@ -45,12 +41,14 @@
     <p id="feed-empty" class="empty" hidden>No items match. New cards appear here as the bot finds them.</p>
   </section>
 
-  <section id="tab-players" class="tab">
-    <div id="player-detail" hidden>
-      <button id="player-back" class="back">← All players</button>
-      <div id="player-timeline"></div>
+  <section id="tab-clubs" class="tab">
+    <div id="club-detail" hidden>
+      <button id="club-back" class="back">← All clubs</button>
+      <h2 id="club-title"></h2>
+      <div id="club-chips" class="chips"></div>
+      <div id="club-cards"></div>
     </div>
-    <div id="player-list"></div>
+    <div id="club-list"></div>
   </section>
 
   <section id="tab-settings" class="tab">
@@ -65,11 +63,11 @@
     <p id="push-status" class="hint"></p>
 
     <h2>Display</h2>
-    <label class="row"><input type="checkbox" id="s-interest" checked> Show interest cards in feed</label>
+    <label class="row"><input type="checkbox" id="s-interest" checked> Show rumour cards in feed</label>
 
     <h2>About</h2>
     <p class="hint">Sources: Fabrizio Romano, David Ornstein, Gianluca Di Marzio, Matteo Moretto, David Amoyal, Florian Plettenberg — via newsdata.io, briefed by Claude.</p>
-    <p class="hint">Interest alerts cover: Real Madrid, Barcelona, Atlético Madrid, Arsenal, Chelsea, Liverpool, Man City, Man United, Tottenham, Bayern, Dortmund, PSG, Juventus, Inter, Milan, Napoli. To change what's monitored, ask Claude — it edits the bot.</p>
+    <p class="hint">Rumour alerts cover: Real Madrid, Barcelona, Atlético Madrid, Arsenal, Chelsea, Liverpool, Man City, Man United, Tottenham, Bayern, Dortmund, PSG, Juventus, Inter, Milan, Napoli. To change what's monitored, ask Claude — it edits the bot.</p>
     <p class="hint" id="version"></p>
   </section>
 </main>

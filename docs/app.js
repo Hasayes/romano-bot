@@ -7,9 +7,96 @@ document.querySelectorAll("nav button").forEach((b) =>
   b.addEventListener("click", () => {
     document.querySelectorAll("nav button").forEach((x) => x.classList.toggle("active", x === b));
     document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.id === "tab-" + b.dataset.tab));
-    if (b.dataset.tab === "players") renderPlayers();
+    if (b.dataset.tab === "clubs") renderClubs();
   })
 );
+
+// ---------- helpers ----------
+const known = (v) => v && v.trim() !== "" && v.trim() !== "—";
+const esc = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+function ago(ts) {
+  const m = Math.max(0, (Date.now() - new Date(ts)) / 60000);
+  if (m < 60) return Math.round(m) + "m";
+  if (m < 60 * 24) return Math.round(m / 60) + "h";
+  return Math.round(m / 60 / 24) + "d";
+}
+
+// Same alias canonicalization as the bot, so "Barça"/"FC Barcelona" group together.
+const CLUB_CANON = [
+  ["Real Madrid", /real madrid/],
+  ["Barcelona", /barcelona|\bbarca\b/],
+  ["Atlético Madrid", /atletico/],
+  ["Arsenal", /arsenal/],
+  ["Chelsea", /chelsea/],
+  ["Liverpool", /liverpool/],
+  ["Manchester City", /man(chester)? city/],
+  ["Manchester United", /man(chester)? u(ni)?te?d/],
+  ["Tottenham", /tottenham|\bspurs\b/],
+  ["Bayern Munich", /bayern/],
+  ["Borussia Dortmund", /dortmund/],
+  ["PSG", /paris saint[- ]germain|\bpsg\b/],
+  ["Juventus", /juventus|\bjuve\b/],
+  ["Inter", /\binter\b/],
+  ["AC Milan", /\bmilan\b/],
+  ["Napoli", /napoli/],
+];
+
+function canonClub(raw) {
+  const n = raw.trim().normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+  for (const [pretty, re] of CLUB_CANON) if (re.test(n)) return pretty;
+  return raw.trim().replace(/\s+(FC|CF|AFC)$/i, "");
+}
+
+// All clubs an item involves: destination(s) + origin.
+function clubsOf(i) {
+  const out = new Set();
+  if (known(i.to_club)) i.to_club.split(",").forEach((c) => known(c) && out.add(canonClub(c)));
+  if (known(i.from_club)) out.add(canonClub(i.from_club));
+  return [...out];
+}
+
+// Unified stage of an item: "rumour" for the interest track, else its deal stage.
+const stageOf = (i) => (i.kind === "interest" ? "rumour" : known(i.stage) ? i.stage : "Completed");
+
+// ---------- cards ----------
+function cardHTML(i, forClub) {
+  const isRumour = i.kind === "interest";
+  const badge = isRumour
+    ? '<span class="badge interest">👀 Rumour</span>'
+    : `<span class="badge deal">${esc(stageOf(i))}</span>`;
+  let tag = "";
+  if (forClub && !isRumour) {
+    const joined = known(i.to_club) && canonClub(i.to_club) === forClub;
+    tag = `<span class="badge ${joined ? "in" : "out"}">${joined ? "⬅ In" : "➡ Out"}</span>`;
+  }
+  const meta = [i.position, i.age].filter(known).join(" · ");
+  const move = isRumour
+    ? `${known(i.from_club) ? "🏟 " + esc(i.from_club) + " · " : ""}🎯 ${esc(i.to_club)}`
+    : `🔄 ${esc(i.from_club)} → ${esc(i.to_club)}`;
+  return `<div class="card">
+    <div class="top"><span class="player" data-player="${esc(i.player)}">${esc(i.player)}</span>
+      <span class="when">${ago(i.ts)} ago</span></div>
+    ${meta ? `<div class="meta">📍 ${esc(meta)}</div>` : ""}
+    <div class="move">${move}${badge}${tag}</div>
+    ${known(i.fee) ? `<div class="line"><b>💰 Fee:</b> ${esc(i.fee)}</div>` : ""}
+    ${known(i.style) ? `<div class="line"><b>🎮 Style:</b> ${esc(i.style)}</div>` : ""}
+    ${known(i.fit) ? `<div class="line"><b>🧩 Fit:</b> ${esc(i.fit)}</div>` : ""}
+    <div class="foot">${known(i.source) ? "🗞 " + esc(i.source) + " · " : ""}${esc(i.outlet || "")}
+      ${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener">Read more</a>` : ""}</div>
+  </div>`;
+}
+
+function bindPlayerClicks(root) {
+  root.querySelectorAll(".player").forEach((el) =>
+    el.addEventListener("click", () => {
+      $("#f-search").value = el.dataset.player;
+      document.querySelector('nav button[data-tab="feed"]').click();
+      renderFeed();
+    })
+  );
+}
 
 // ---------- feed ----------
 async function loadFeed() {
@@ -23,23 +110,9 @@ async function loadFeed() {
   renderFeed();
 }
 
-const known = (v) => v && v.trim() !== "" && v.trim() !== "—";
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-function ago(ts) {
-  const m = Math.max(0, (Date.now() - new Date(ts)) / 60000);
-  if (m < 60) return Math.round(m) + "m";
-  if (m < 60 * 24) return Math.round(m / 60) + "h";
-  return Math.round(m / 60 / 24) + "d";
-}
-
 function buildClubFilter() {
   const clubs = new Set();
-  feed.forEach((i) => {
-    if (known(i.to_club)) i.to_club.split(",").forEach((c) => clubs.add(c.trim()));
-    if (known(i.from_club)) clubs.add(i.from_club.trim());
-  });
+  feed.forEach((i) => clubsOf(i).forEach((c) => clubs.add(c)));
   const sel = $("#f-club");
   const cur = sel.value;
   sel.innerHTML = '<option value="">All clubs</option>' +
@@ -47,89 +120,93 @@ function buildClubFilter() {
   sel.value = cur;
 }
 
-function cardHTML(i) {
-  const isInt = i.kind === "interest";
-  const badge = isInt
-    ? '<span class="badge interest">👀 Interest</span>'
-    : `<span class="badge deal">${esc(known(i.stage) ? i.stage : "Deal")}</span>`;
-  const meta = [i.position, i.age].filter(known).join(" · ");
-  const move = isInt
-    ? `${known(i.from_club) ? "🏟 " + esc(i.from_club) + " · " : ""}🎯 ${esc(i.to_club)}`
-    : `🔄 ${esc(i.from_club)} → ${esc(i.to_club)}`;
-  return `<div class="card">
-    <div class="top"><span class="player" data-player="${esc(i.player)}">${esc(i.player)}</span>
-      <span class="when">${ago(i.ts)} ago</span></div>
-    ${meta ? `<div class="meta">📍 ${esc(meta)}</div>` : ""}
-    <div class="move">${move}${badge}</div>
-    ${known(i.fee) ? `<div class="line"><b>💰 Fee:</b> ${esc(i.fee)}</div>` : ""}
-    ${known(i.style) ? `<div class="line"><b>🎮 Style:</b> ${esc(i.style)}</div>` : ""}
-    ${known(i.fit) ? `<div class="line"><b>🧩 Fit:</b> ${esc(i.fit)}</div>` : ""}
-    <div class="foot">${known(i.source) ? "🗞 " + esc(i.source) + " · " : ""}${esc(i.outlet || "")}
-      ${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener">Read more</a>` : ""}</div>
-  </div>`;
+function matchesStage(i, want) {
+  if (!want) return true;
+  return stageOf(i) === want;
 }
 
 function renderFeed() {
-  const kind = $("#f-kind").value;
   const stage = $("#f-stage").value;
-  const club = $("#f-club").value.toLowerCase();
+  const club = $("#f-club").value;
   const q = $("#f-search").value.toLowerCase();
-  const showInterest = $("#s-interest").checked;
+  const showRumours = $("#s-interest").checked;
   const items = feed.filter((i) => {
-    if (!showInterest && i.kind === "interest") return false;
-    if (kind && i.kind !== kind) return false;
-    if (stage && i.stage !== stage) return false;
-    if (club && !(i.to_club + " " + i.from_club).toLowerCase().includes(club)) return false;
+    if (!showRumours && i.kind === "interest") return false;
+    if (!matchesStage(i, stage)) return false;
+    if (club && !clubsOf(i).includes(club)) return false;
     if (q && !`${i.player} ${i.to_club} ${i.from_club} ${i.source} ${i.title}`.toLowerCase().includes(q)) return false;
     return true;
   });
-  $("#cards").innerHTML = items.map(cardHTML).join("");
+  $("#cards").innerHTML = items.map((i) => cardHTML(i)).join("");
   $("#feed-empty").hidden = items.length > 0;
-  document.querySelectorAll(".player").forEach((el) =>
-    el.addEventListener("click", () => openPlayer(el.dataset.player))
-  );
+  bindPlayerClicks($("#cards"));
 }
 
-["#f-kind", "#f-stage", "#f-club", "#s-interest"].forEach((s) => $(s).addEventListener("change", renderFeed));
+["#f-stage", "#f-club", "#s-interest"].forEach((s) => $(s).addEventListener("change", renderFeed));
 $("#f-search").addEventListener("input", renderFeed);
 
-// ---------- players ----------
-const surname = (p) => p.trim().split(/\s+/).pop().toLowerCase();
-
-function renderPlayers() {
-  $("#player-detail").hidden = true;
+// ---------- clubs ----------
+function renderClubs() {
+  $("#club-detail").hidden = true;
   const groups = new Map();
-  feed.forEach((i) => {
-    if (!known(i.player)) return;
-    const k = surname(i.player);
-    if (!groups.has(k)) groups.set(k, []);
-    groups.get(k).push(i);
-  });
-  const rows = [...groups.values()]
-    .sort((a, b) => new Date(b[0].ts) - new Date(a[0].ts))
-    .map((items) => {
-      const latest = items[0];
-      const st = latest.kind === "interest" ? "👀 interest" : "⚽️ " + (latest.stage || "deal").toLowerCase();
-      return `<div class="player-row" data-player="${esc(latest.player)}">
-        <div><div class="n">${esc(latest.player)}</div>
-        <div class="sub">${items.length} update${items.length > 1 ? "s" : ""} · latest: ${esc(st)}</div></div>
+  feed.forEach((i) =>
+    clubsOf(i).forEach((c) => {
+      if (!groups.has(c)) groups.set(c, []);
+      groups.get(c).push(i);
+    })
+  );
+  const rows = [...groups.entries()]
+    .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
+    .map(([club, items]) => {
+      const deals = items.filter((i) => i.kind !== "interest").length;
+      const rumours = items.length - deals;
+      const sub = `${deals} deal${deals === 1 ? "" : "s"}` + (rumours ? ` · ${rumours} rumour${rumours === 1 ? "" : "s"}` : "");
+      return `<div class="player-row" data-club="${esc(club)}">
+        <div><div class="n">${esc(club)}</div><div class="sub">${sub}</div></div>
         <div>›</div></div>`;
     });
-  $("#player-list").innerHTML = rows.join("") || '<p class="empty">No players yet.</p>';
-  document.querySelectorAll(".player-row").forEach((el) =>
-    el.addEventListener("click", () => openPlayer(el.dataset.player))
+  $("#club-list").innerHTML = rows.join("") || '<p class="empty">No clubs yet.</p>';
+  $("#club-list").querySelectorAll(".player-row").forEach((el) =>
+    el.addEventListener("click", () => openClub(el.dataset.club))
   );
 }
 
-function openPlayer(name) {
-  document.querySelector('nav button[data-tab="players"]').click();
-  const k = surname(name);
-  const items = feed.filter((i) => known(i.player) && surname(i.player) === k);
-  $("#player-list").innerHTML = "";
-  $("#player-detail").hidden = false;
-  $("#player-timeline").innerHTML = items.map(cardHTML).join("");
+const CLUB_STAGES = [
+  ["", "All"],
+  ["rumour", "👀 Rumours"],
+  ["Here we go", "🚦 Here we go"],
+  ["Medical", "🩺 Medical"],
+  ["Completed", "✅ Completed"],
+];
+let clubStage = "";
+
+function openClub(club) {
+  document.querySelector('nav button[data-tab="clubs"]').click();
+  clubStage = "";
+  $("#club-list").innerHTML = "";
+  $("#club-detail").hidden = false;
+  $("#club-title").textContent = club;
+  $("#club-chips").innerHTML = CLUB_STAGES.map(
+    ([v, label]) => `<button class="chip${v === "" ? " active" : ""}" data-stage="${v}">${label}</button>`
+  ).join("");
+  $("#club-chips").querySelectorAll(".chip").forEach((ch) =>
+    ch.addEventListener("click", () => {
+      clubStage = ch.dataset.stage;
+      $("#club-chips").querySelectorAll(".chip").forEach((x) => x.classList.toggle("active", x === ch));
+      renderClubCards(club);
+    })
+  );
+  renderClubCards(club);
 }
-$("#player-back").addEventListener("click", renderPlayers);
+
+function renderClubCards(club) {
+  const items = feed.filter((i) => clubsOf(i).includes(club) && matchesStage(i, clubStage));
+  $("#club-cards").innerHTML =
+    items.map((i) => cardHTML(i, club)).join("") || '<p class="empty">Nothing here yet.</p>';
+  bindPlayerClicks($("#club-cards"));
+}
+
+$("#club-back").addEventListener("click", renderClubs);
 
 // ---------- push notifications ----------
 async function enablePush() {
@@ -176,6 +253,9 @@ $("#s-interest").addEventListener("change", (e) =>
 
 // ---------- boot ----------
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
-loadFeed();
+loadFeed().then(() => {
+  if (location.hash === "#clubs") document.querySelector('nav button[data-tab="clubs"]').click();
+  else if (location.hash.startsWith("#club=")) openClub(decodeURIComponent(location.hash.slice(6)));
+});
 setInterval(loadFeed, 5 * 60 * 1000); // refresh while open
-$("#version").textContent = "ShimShim v2.0";
+$("#version").textContent = "ShimShim v2.1";
