@@ -15,8 +15,10 @@ Follows: **Fabrizio Romano, David Ornstein, Gianluca Di Marzio, Matteo Moretto,
 David Amoyal, Florian Plettenberg**.
 
 ## How it works
-1. `shimshim_bot.py` queries a news API for those journalists (one combined OR
-   query per poll to stay within the free-tier request budget).
+1. `shimshim_bot.py` pulls from two sources each poll: **Fabrizio Romano's
+   Telegram channel** (mirrors his X posts within minutes; read via the free
+   `t.me/s/` web preview, no API key) and a news API queried for all six
+   journalists (the slower safety net).
 2. Keeps only items whose title/description mention a transfer keyword
    (`here we go`, `confirmed`, `official`, `medical`, `signs`, ...) — a cheap
    prefilter before spending a Claude call.

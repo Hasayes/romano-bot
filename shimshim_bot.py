@@ -17,6 +17,8 @@ Optional:
   NEWS_PROVIDER        "newsdata" (default) or "gnews"
   NEWS_QUERY           Search phrase (default: the six journalists below)
   NEWSDATA_PAGES       newsdata pages per poll, 1 credit each (default 2)
+  TELEGRAM_CHANNELS    comma-separated t.me channels to mirror
+                       (default "fabrizioromanotg" — Fabrizio Romano)
   CLAUDE_MODEL         Model id (default "claude-opus-4-8")
   STATE_FILE           Path to state file (default state.json next to script)
 """
@@ -32,6 +34,7 @@ from pathlib import Path
 from typing import Literal
 
 import anthropic
+from bs4 import BeautifulSoup
 from pydantic import BaseModel
 
 # Only forward items whose title/description mentions one of these. Keeps the
@@ -140,6 +143,11 @@ PROVIDER = os.environ.get("NEWS_PROVIDER", "newsdata").lower()
 # Pages fetched per poll from newsdata (each page = 10 articles = 1 API
 # credit). 2 keeps a full 96-runs/day schedule under the 200-credit free tier.
 NEWSDATA_PAGES = int(os.environ.get("NEWSDATA_PAGES", "2"))
+
+# Public Telegram channels mirroring journalists' posts, read via the t.me/s/
+# web preview (no auth, no API key). Primary fast source; news articles from
+# the provider above remain as the safety net.
+TELEGRAM_CHANNELS = os.environ.get("TELEGRAM_CHANNELS", "fabrizioromanotg")
 CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL", "claude-opus-4-8")
 STATE_FILE = Path(os.environ.get("STATE_FILE", Path(__file__).with_name("state.json")))
 MAX_STATE = 500  # cap remembered IDs so state.json doesn't grow forever
@@ -280,6 +288,39 @@ def fetch_articles():
         page = data.get("nextPage")
         if not page:
             break
+    return out
+
+
+def fetch_telegram_posts():
+    """Return recent posts from the mirror channels as article dicts.
+
+    Reads the public t.me/s/<channel> web preview — server-rendered HTML,
+    no auth or API key. Shows roughly the last 20 posts per channel.
+    """
+    out = []
+    for channel in [c.strip() for c in TELEGRAM_CHANNELS.split(",") if c.strip()]:
+        req = urllib.request.Request(
+            f"https://t.me/s/{channel}",
+            headers={"User-Agent": "Mozilla/5.0 (compatible; shimshim-bot/1.0)"},
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            soup = BeautifulSoup(resp.read().decode("utf-8", "replace"), "html.parser")
+        for msg in soup.select("div.tgme_widget_message"):
+            post = msg.get("data-post")  # "channel/12345"
+            text_div = msg.select_one(".tgme_widget_message_text")
+            if not post or text_div is None:
+                continue
+            text = text_div.get_text(" ", strip=True)
+            if not text:
+                continue  # photo/video post without a caption
+            out.append({
+                "id": f"tg:{post}",
+                "title": text[:120],
+                "desc": text,
+                "url": f"https://t.me/{post}",
+                "source": f"Telegram @{channel}",
+            })
+    out.reverse()  # t.me lists oldest→newest; match the provider's newest-first
     return out
 
 
@@ -528,10 +569,17 @@ def main():
     deals = state["deals"]  # deal key -> highest stage rank already sent
     interest_sent = set(state["interest"])
     client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the env
+    articles = []
     try:
-        articles = fetch_articles()
+        articles += fetch_telegram_posts()
+    except Exception as e:  # noqa: BLE001 — one source down must not kill the other
+        print(f"telegram fetch failed: {e}", file=sys.stderr)
+    try:
+        articles += fetch_articles()
     except Exception as e:  # noqa: BLE001
-        print(f"fetch failed: {e}", file=sys.stderr)
+        print(f"news fetch failed: {e}", file=sys.stderr)
+    if not articles:
+        print("all sources failed", file=sys.stderr)
         sys.exit(1)
 
     sent_count = 0
