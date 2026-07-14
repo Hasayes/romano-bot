@@ -64,7 +64,18 @@
     "f55500fec8db677ac1295eb175b558dc",
     "1c6880584160169f6bc5d66092e7f856",
     "76f46be1658946c7d81ccd244ea9af59",
-    "3e312b85509adcedb0c4f7356165dc33"
+    "3e312b85509adcedb0c4f7356165dc33",
+    "349b7512505b1efcb08bb5c8f843996f",
+    "102511f8476f35959503c3926a302dfa",
+    "b8935a0fb41502976970b25604fae8d0",
+    "35263d9ea246153227fea29cd9fa7d05",
+    "21389ee903b72eec71e1960e00ee0396",
+    "0222c5017afaada685260dfd82d4d24b",
+    "963e97e3999ac11b9231c769ae02f512",
+    "7fe2cb5fb9b6f8760e36a3957cfca976",
+    "622eb5bd45066025059f77ff7eef2ee0",
+    "3225fa04bb17c835244f543bc91524a5",
+    "16f6b27698cca9d44995cad308dba04d"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -73,7 +84,8 @@
     "vuskovic -> \u2014": 3,
     "digne -> \u2014": 1,
     "santos -> manchester united": 3,
-    "caicedo -> barcelona": 3
+    "caicedo -> barcelona": 3,
+    "bettoni -> chelsea": 1
   },
   "interest": [
     "interest: alvarez -> arsenal",
@@ -91,6 +103,7 @@
     "interest: stones -> inter",
     "interest: kone -> manchester united",
     "interest: hall -> manchester united",
-    "interest: williams -> tottenham"
+    "interest: williams -> tottenham",
+    "interest: guimaraes -> arsenal"
   ]
 }
