@@ -31,7 +31,7 @@ jobs:
           research = client.messages.create(
               model=CLAUDE_MODEL, max_tokens=4096, system=RESEARCH_SYSTEM,
               messages=[{"role": "user", "content": f"Headline: {article['title']}"}],
-              tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 3}],
+              tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 5}],
           )
           print("stop_reason:", research.stop_reason)
           for b in research.content:

@@ -178,8 +178,11 @@ RESEARCH_SYSTEM = (
     "3. The buying or interested club(s).\n"
     "4. The reported fee.\n"
     "5. The journalist/outlet credited with the story.\n"
-    "Reply with concise bullet-point findings. Explicitly mark any fact you "
-    "could not verify as UNVERIFIED. Never guess from memory."
+    "You have a budget of at most 5 web searches — plan them so you don't "
+    "run out mid-task. When you finish searching (or hit the limit), you "
+    "MUST end with your bullet-point findings based on whatever you found "
+    "so far — never end the turn without findings. Explicitly mark any fact "
+    "you could not verify as UNVERIFIED. Never guess from memory."
 )
 
 
@@ -357,7 +360,7 @@ def brief_article(client, article):
         f"Source: {article['source']}"
     )
     messages = [{"role": "user", "content": prompt}]
-    tools = [{"type": "web_search_20260209", "name": "web_search", "max_uses": 3}]
+    tools = [{"type": "web_search_20260209", "name": "web_search", "max_uses": 5}]
     research = client.messages.create(
         model=CLAUDE_MODEL,
         max_tokens=4096,
