@@ -52,6 +52,15 @@ KEYWORDS = [
     "agreement reached",
     "deal done",
     "joins",
+    # Romano's softer confirmation phrasings — "deal happening as expected"
+    # (ter Stegen→Ajax) slipped past the stricter list above
+    "deal happening",
+    "deal agreed",
+    "deal in place",
+    "verbal agreement",
+    "total agreement",
+    "set to sign",
+    "green light",
 ]
 
 # Clubs whose transfer INTEREST (rumour-stage) is also notified. Deal-stage
@@ -296,36 +305,54 @@ def fetch_articles():
     return out
 
 
-def fetch_telegram_posts():
+def fetch_telegram_posts(max_pages=None):
     """Return recent posts from the mirror channels as article dicts.
 
     Reads the public t.me/s/<channel> web preview — server-rendered HTML,
-    no auth or API key. Shows roughly the last 20 posts per channel.
+    no auth or API key. Each page shows ~20 posts; we always walk
+    TELEGRAM_PAGES pages back (?before=<msg_id>, ~60 posts ≈ 1.5 days of
+    Romano), so posts that scrolled past the first page during an outage
+    or a long cron gap are still picked up. Per-post dedup via state.json
+    keeps re-reads free.
     """
+    if max_pages is None:
+        max_pages = int(os.environ.get("TELEGRAM_PAGES", "3"))
     out = []
     for channel in [c.strip() for c in TELEGRAM_CHANNELS.split(",") if c.strip()]:
-        req = urllib.request.Request(
-            f"https://t.me/s/{channel}",
-            headers={"User-Agent": "Mozilla/5.0 (compatible; shimshim-bot/1.0)"},
-        )
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            soup = BeautifulSoup(resp.read().decode("utf-8", "replace"), "html.parser")
-        for msg in soup.select("div.tgme_widget_message"):
-            post = msg.get("data-post")  # "channel/12345"
-            text_div = msg.select_one(".tgme_widget_message_text")
-            if not post or text_div is None:
-                continue
-            text = text_div.get_text(" ", strip=True)
-            if not text:
-                continue  # photo/video post without a caption
-            out.append({
-                "id": f"tg:{post}",
-                "title": text[:120],
-                "desc": text,
-                "url": f"https://t.me/{post}",
-                "source": f"Telegram @{channel}",
-            })
-    out.reverse()  # t.me lists oldest→newest; match the provider's newest-first
+        before = None
+        for _ in range(max_pages):
+            url = f"https://t.me/s/{channel}" + (f"?before={before}" if before else "")
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": "Mozilla/5.0 (compatible; shimshim-bot/1.0)"},
+            )
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                soup = BeautifulSoup(resp.read().decode("utf-8", "replace"), "html.parser")
+            page, ids = [], []
+            for msg in soup.select("div.tgme_widget_message"):
+                post = msg.get("data-post")  # "channel/12345"
+                if not post:
+                    continue
+                ids.append(int(post.rsplit("/", 1)[1]))
+                text_div = msg.select_one(".tgme_widget_message_text")
+                if text_div is None:
+                    continue
+                text = text_div.get_text(" ", strip=True)
+                if not text:
+                    continue  # photo/video post without a caption
+                page.append({
+                    "id": f"tg:{post}",
+                    "title": text[:120],
+                    "desc": text,
+                    "url": f"https://t.me/{post}",
+                    "source": f"Telegram @{channel}",
+                })
+            if not ids:
+                break
+            out.extend(page)
+            before = min(ids)
+    # newest first, matching the news provider's ordering
+    out.sort(key=lambda p: int(p["id"].rsplit("/", 1)[1]), reverse=True)
     return out
 
 
