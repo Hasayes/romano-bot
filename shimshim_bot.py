@@ -19,7 +19,7 @@ Optional:
   NEWSDATA_PAGES       newsdata pages per poll, 1 credit each (default 2)
   TELEGRAM_CHANNELS    comma-separated t.me channels to mirror
                        (default "fabrizioromanotg" — Fabrizio Romano)
-  CLAUDE_MODEL         Model id (default "claude-opus-4-8")
+  CLAUDE_MODEL         Model id (default "claude-sonnet-4-6")
   STATE_FILE           Path to state file (default state.json next to script)
 """
 import json
@@ -148,7 +148,7 @@ NEWSDATA_PAGES = int(os.environ.get("NEWSDATA_PAGES", "2"))
 # web preview (no auth, no API key). Primary fast source; news articles from
 # the provider above remain as the safety net.
 TELEGRAM_CHANNELS = os.environ.get("TELEGRAM_CHANNELS", "fabrizioromanotg")
-CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL", "claude-opus-4-8")
+CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-4-6")
 
 # Cards go to the app (feed + web push) only; set TELEGRAM_CARDS=1 to also
 # send them to the Telegram chat again. Rare operational alerts (e.g. billing

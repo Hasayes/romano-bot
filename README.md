@@ -22,7 +22,7 @@ David Amoyal, Florian Plettenberg**.
 2. Keeps only items whose title/description mention a transfer keyword
    (`here we go`, `confirmed`, `official`, `medical`, `signs`, ...) — a cheap
    prefilter before spending a Claude call.
-3. Passes each candidate to **Claude** (`claude-opus-4-8`), which confirms it's
+3. Passes each candidate to **Claude** (`claude-sonnet-4-6`), which confirms it's
    a real completed transfer and returns a structured briefing: player,
    position, age, clubs, fee, style of play, and how he fits the new team.
 4. Sends the briefing to your Telegram chat and records the article ID in
