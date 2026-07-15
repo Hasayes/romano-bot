@@ -1458,24 +1458,6 @@
   "title": "J\u00e9r\u00e9mie Boga: OGC Nice to Juventus"
  },
  {
-  "id": "backfill-65",
-  "ts": "2026-06-05T12:00:00+00:00",
-  "kind": "deal",
-  "stage": "Completed",
-  "player": "Giovanni Simeone",
-  "position": "Striker",
-  "age": "31",
-  "from_club": "Napoli",
-  "to_club": "Torino",
-  "fee": "\u20ac7.2m",
-  "style": "High-energy pressing striker who works the channels and thrives as a hard-running second forward.",
-  "fit": "Leaves Naples for guaranteed starts, leading Torino's line.",
-  "source": "",
-  "outlet": "",
-  "url": "https://dailysports.net/team/ssc-napoli/transfers/",
-  "title": "Giovanni Simeone: Napoli to Torino"
- },
- {
   "id": "backfill-66",
   "ts": "2026-06-01T12:00:00+00:00",
   "kind": "deal",
