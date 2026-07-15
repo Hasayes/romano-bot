@@ -49,7 +49,13 @@ jobs:
             git config user.email "bot@users.noreply.github.com"
             git add state.json docs/feed.json
             git commit -m "update state [skip ci]"
-            git push
+            # main may have moved while the poll ran — rebase and retry, else
+            # sent cards are never persisted and the next run re-sends them
+            n=0
+            until git push; do
+              n=$((n+1)); [ "$n" -gt 3 ] && exit 1
+              git pull --rebase -X theirs origin main
+            done
           else
             echo "no state change"
           fi

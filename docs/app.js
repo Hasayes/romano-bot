@@ -89,13 +89,8 @@ function cardHTML(i, forClub) {
 }
 
 function bindPlayerClicks(root) {
-  root.querySelectorAll(".player").forEach((el) =>
-    el.addEventListener("click", () => {
-      $("#f-search").value = el.dataset.player;
-      document.querySelector('nav button[data-tab="feed"]').click();
-      renderFeed();
-    })
-  );
+  // player names are plain labels now — the feed filters by stage only
+  void root;
 }
 
 // ---------- feed ----------
@@ -106,18 +101,7 @@ async function loadFeed() {
   } catch {
     feed = [];
   }
-  buildClubFilter();
   renderFeed();
-}
-
-function buildClubFilter() {
-  const clubs = new Set();
-  feed.forEach((i) => clubsOf(i).forEach((c) => clubs.add(c)));
-  const sel = $("#f-club");
-  const cur = sel.value;
-  sel.innerHTML = '<option value="">All clubs</option>' +
-    [...clubs].sort().map((c) => `<option>${esc(c)}</option>`).join("");
-  sel.value = cur;
 }
 
 function matchesStage(i, want) {
@@ -125,25 +109,28 @@ function matchesStage(i, want) {
   return stageOf(i) === want;
 }
 
+// The feed is filtered by stage only — chips shared with the club pages.
+let feedStage = "";
+
+function renderFeedChips() {
+  $("#feed-chips").innerHTML = STAGE_CHIPS.map(
+    ([v, label]) => `<button class="chip${v === feedStage ? " active" : ""}" data-stage="${v}">${label}</button>`
+  ).join("");
+  $("#feed-chips").querySelectorAll(".chip").forEach((ch) =>
+    ch.addEventListener("click", () => {
+      feedStage = ch.dataset.stage;
+      renderFeedChips();
+      renderFeed();
+    })
+  );
+}
+
 function renderFeed() {
-  const stage = $("#f-stage").value;
-  const club = $("#f-club").value;
-  const q = $("#f-search").value.toLowerCase();
-  const showRumours = $("#s-interest").checked;
-  const items = feed.filter((i) => {
-    if (!showRumours && i.kind === "interest") return false;
-    if (!matchesStage(i, stage)) return false;
-    if (club && !clubsOf(i).includes(club)) return false;
-    if (q && !`${i.player} ${i.to_club} ${i.from_club} ${i.source} ${i.title}`.toLowerCase().includes(q)) return false;
-    return true;
-  });
+  const items = feed.filter((i) => matchesStage(i, feedStage));
   $("#cards").innerHTML = items.map((i) => cardHTML(i)).join("");
   $("#feed-empty").hidden = items.length > 0;
   bindPlayerClicks($("#cards"));
 }
-
-["#f-stage", "#f-club", "#s-interest"].forEach((s) => $(s).addEventListener("change", renderFeed));
-$("#f-search").addEventListener("input", renderFeed);
 
 // ---------- clubs ----------
 function renderClubs() {
@@ -171,7 +158,7 @@ function renderClubs() {
   );
 }
 
-const CLUB_STAGES = [
+const STAGE_CHIPS = [
   ["", "All"],
   ["rumour", "👀 Rumours"],
   ["Here we go", "🚦 Here we go"],
@@ -186,7 +173,7 @@ function openClub(club) {
   $("#club-list").innerHTML = "";
   $("#club-detail").hidden = false;
   $("#club-title").textContent = club;
-  $("#club-chips").innerHTML = CLUB_STAGES.map(
+  $("#club-chips").innerHTML = STAGE_CHIPS.map(
     ([v, label]) => `<button class="chip${v === "" ? " active" : ""}" data-stage="${v}">${label}</button>`
   ).join("");
   $("#club-chips").querySelectorAll(".chip").forEach((ch) =>
@@ -245,17 +232,12 @@ function urlB64(s) {
   return Uint8Array.from([...raw].map((c) => c.charCodeAt(0)));
 }
 
-// ---------- settings persistence ----------
-$("#s-interest").checked = localStorage.getItem("showInterest") !== "0";
-$("#s-interest").addEventListener("change", (e) =>
-  localStorage.setItem("showInterest", e.target.checked ? "1" : "0")
-);
-
 // ---------- boot ----------
+renderFeedChips();
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 loadFeed().then(() => {
   if (location.hash === "#clubs") document.querySelector('nav button[data-tab="clubs"]').click();
   else if (location.hash.startsWith("#club=")) openClub(decodeURIComponent(location.hash.slice(6)));
 });
 setInterval(loadFeed, 5 * 60 * 1000); // refresh while open
-$("#version").textContent = "ShimShim v2.1";
+$("#version").textContent = "ShimShim v2.2";

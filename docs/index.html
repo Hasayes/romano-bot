@@ -24,19 +24,7 @@
 </header>
 <main>
   <section id="tab-feed" class="tab active">
-    <div class="filters">
-      <select id="f-stage">
-        <option value="">All stages</option>
-        <option value="rumour">👀 Rumours</option>
-        <option value="Here we go">🚦 Here we go</option>
-        <option value="Medical">🩺 Medical</option>
-        <option value="Completed">✅ Completed</option>
-      </select>
-      <select id="f-club">
-        <option value="">All clubs</option>
-      </select>
-      <input id="f-search" type="search" placeholder="Search player, club, journalist…">
-    </div>
+    <div id="feed-chips" class="chips"></div>
     <div id="cards"></div>
     <p id="feed-empty" class="empty" hidden>No items match. New cards appear here as the bot finds them.</p>
   </section>
@@ -61,9 +49,6 @@
       <button id="push-copy">Copy</button>
     </div>
     <p id="push-status" class="hint"></p>
-
-    <h2>Display</h2>
-    <label class="row"><input type="checkbox" id="s-interest" checked> Show rumour cards in feed</label>
 
     <h2>About</h2>
     <p class="hint">Sources: Fabrizio Romano, David Ornstein, Gianluca Di Marzio, Matteo Moretto, David Amoyal, Florian Plettenberg — via newsdata.io, briefed by Claude.</p>

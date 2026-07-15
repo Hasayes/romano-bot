@@ -63,7 +63,7 @@ main { padding: 16px 14px 48px; max-width: 640px; margin: 0 auto; }
   border: 1px solid var(--line);
 }
 .card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.card .player { font-size: 18px; font-weight: 800; cursor: pointer; color: var(--text); }
+.card .player { font-size: 18px; font-weight: 800; color: var(--text); }
 .card .player:active { color: var(--brand); }
 .card .when { color: var(--muted); font-size: 12px; white-space: nowrap; }
 .card .meta { color: var(--muted); font-size: 13px; margin: 2px 0 8px; }
