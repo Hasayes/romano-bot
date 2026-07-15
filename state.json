@@ -125,7 +125,25 @@
     "tg:FabrizioRomanoTG/63032",
     "tg:FabrizioRomanoTG/63033",
     "tg:FabrizioRomanoTG/63034",
-    "tg:FabrizioRomanoTG/63036"
+    "tg:FabrizioRomanoTG/63036",
+    "aca439d641087597bcfe1cf338f0ffc8",
+    "aecc8efc844463237de5bf5e30e566de",
+    "1166250b72bb8e189f2fddf603db7eb8",
+    "97145e8235dfbc282856f975f265580e",
+    "d4d7c48847001fba7db8dea998118fe0",
+    "1131f7e2a1e7804a8c16966079aa5bdf",
+    "3eddc8689bd1374a062e7267fbd5728a",
+    "tg:FabrizioRomanoTG/62984",
+    "tg:FabrizioRomanoTG/62985",
+    "tg:FabrizioRomanoTG/62986",
+    "tg:FabrizioRomanoTG/62989",
+    "tg:FabrizioRomanoTG/62995",
+    "tg:FabrizioRomanoTG/62999",
+    "tg:FabrizioRomanoTG/63005",
+    "tg:FabrizioRomanoTG/63006",
+    "tg:FabrizioRomanoTG/63008",
+    "tg:FabrizioRomanoTG/63027",
+    "tg:FabrizioRomanoTG/63037"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -203,10 +221,13 @@
     "kiwior -> fc porto": 3,
     "akanji -> inter": 3,
     "h\u00f8jlund -> napoli": 3,
-    "muharemovic -> leeds united": 1,
+    "muharemovic -> leeds united": 2,
     "greenwood -> fenerbahce": 3,
     "dobbin -> southampton": 3,
-    "silva -> bournemouth": 1
+    "silva -> bournemouth": 1,
+    "gosens -> schalke 04": 1,
+    "stegen -> ajax": 1,
+    "trossard -> besiktas": 2
   },
   "interest": [
     "interest: alvarez -> arsenal",
