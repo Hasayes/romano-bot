@@ -26,11 +26,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # GitHub fires the cron unreliably (observed 1-3h gaps despite the
-      # 15-min schedule). Each fire therefore covers ~27 minutes with three
-      # polling passes, and the concurrency group keeps one run queued, so
-      # coverage is near-continuous while fires keep coming.
-      - name: Poll and notify (3 passes)
+      # Triggered every 15 min by an external pinger (cron-job.org →
+      # workflow_dispatch); the GitHub cron above is a free backup, since
+      # GitHub fires it unreliably (observed 1-3h gaps).
+      - name: Poll and notify
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -61,12 +60,5 @@ jobs:
               echo "no state change"
             fi
           }
-          for pass in 1 2 3; do
-            echo "=== pass $pass ==="
-            python shimshim_bot.py || echo "pass $pass failed" >&2
-            persist
-            if [ "$pass" -lt 3 ]; then
-              sleep 780
-              git pull --rebase -q origin main || true
-            fi
-          done
+          python shimshim_bot.py
+          persist
