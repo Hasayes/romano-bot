@@ -263,12 +263,16 @@ if ("serviceWorker" in navigator) {
 }
 // refresh whenever the app comes back to the foreground
 document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) loadFeed();
+  if (!document.hidden) {
+    loadFeed();
+    if (navigator.clearAppBadge) navigator.clearAppBadge().catch(() => {});
+  }
 });
+if (navigator.clearAppBadge) navigator.clearAppBadge().catch(() => {});
 checkPushHealth();
 loadFeed().then(() => {
   if (location.hash === "#clubs") document.querySelector('nav button[data-tab="clubs"]').click();
   else if (location.hash.startsWith("#club=")) openClub(decodeURIComponent(location.hash.slice(6)));
 });
 setInterval(loadFeed, 5 * 60 * 1000); // refresh while open
-$("#version").textContent = "ShimShim v2.4";
+$("#version").textContent = "ShimShim v2.5";

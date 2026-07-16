@@ -1,4 +1,4 @@
-const CACHE = "shimshim-v10";
+const CACHE = "shimshim-v11";
 const SHELL = ["./", "index.html", "style.css", "app.js", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", (e) => {
@@ -39,8 +39,11 @@ self.addEventListener("push", (e) => {
       body: d.body || "",
       icon: "icon-192.png",
       badge: "icon-192.png",
+      tag: d.tag || undefined,       // stage upgrades replace the older alert
+      renotify: !!d.tag,             // ...but still buzz again
       data: { url: d.url || "./" },
     });
+    try { await navigator.setAppBadge(); } catch { /* badge unsupported */ }
     // if the app is open, refresh its feed right away
     const list = await clients.matchAll({ type: "window" });
     for (const c of list) c.postMessage("refresh-feed");
@@ -54,6 +57,18 @@ self.addEventListener("notificationclick", (e) => {
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
       for (const c of list) if ("focus" in c) return c.focus();
       return clients.openWindow("./");
+    })
+  );
+});
+
+// iOS renews push subscriptions occasionally; the paired one then goes
+// stale. Best-effort alarm so it never fails silently (the in-app health
+// check in Settings is the reliable layer).
+self.addEventListener("pushsubscriptionchange", (e) => {
+  e.waitUntil(
+    self.registration.showNotification("⚠️ ShimShim needs re-pairing", {
+      body: "iOS renewed the push subscription. Open Settings → Enable notifications and send the new code.",
+      icon: "icon-192.png",
     })
   );
 });
