@@ -1,5 +1,23 @@
 [
  {
+  "id": "383bf42e36e067b311902c3d3998a19d",
+  "ts": "2026-07-16T01:31:46+00:00",
+  "kind": "interest",
+  "stage": "\u2014",
+  "player": "Mateo Kova\u010di\u0107",
+  "position": "Central Midfielder",
+  "age": "32",
+  "from_club": "Manchester City",
+  "to_club": "Inter",
+  "fee": "\u20ac10m\u2013\u20ac15m",
+  "style": "A technically gifted box-to-box midfielder who excels at ball-carrying, pressing and quick combination play in tight spaces.",
+  "fit": "His experience in high-pressing systems and ability to cover ground makes him a natural fit for Inter's midfield structure, particularly as a replacement should \u00c7alhano\u011flu depart.",
+  "source": "Matteo Moretto",
+  "outlet": "yahoo",
+  "url": "https://ca.sports.yahoo.com/news/italy-man-city-offer-mateo-133000052.html",
+  "title": "From Italy: Man City offer Mateo Kovacic to Inter Milan but squad congestion cools San Siro interest"
+ },
+ {
   "id": "699b80b8330a7c70656a1e86f69e33b0",
   "ts": "2026-07-16T01:08:51+00:00",
   "kind": "interest",
