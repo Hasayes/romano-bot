@@ -3,7 +3,13 @@ name: ShimShim bot
 on:
   schedule:
     - cron: "7,22,37,52 * * * *"   # every 15 min, offset to dodge the congested :00/:15/:30/:45 slots
-  workflow_dispatch: {}        # allow manual runs from the Actions tab
+  workflow_dispatch:           # manual runs + the external 15-min pinger
+    inputs:
+      dry_run:
+        description: "Fetch + prefilter only; no Claude, no sends, no persist"
+        required: false
+        default: false
+        type: boolean
 
 # Let the job commit the updated state.json back to the repo
 permissions:
@@ -38,6 +44,7 @@ jobs:
           NEWS_PROVIDER: ${{ vars.NEWS_PROVIDER || 'newsdata' }}
           VAPID_PRIVATE_KEY_PEM: ${{ secrets.VAPID_PRIVATE_KEY_PEM }}
           PUSH_SUBSCRIPTIONS: ${{ secrets.PUSH_SUBSCRIPTIONS }}
+          DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '0' }}
         run: |
           if [[ -n "$VAPID_PRIVATE_KEY_PEM" ]]; then
             echo "$VAPID_PRIVATE_KEY_PEM" > "$RUNNER_TEMP/vapid.pem"

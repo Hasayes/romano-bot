@@ -156,6 +156,10 @@ CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-4-6")
 # send them to the Telegram chat again. Rare operational alerts (e.g. billing
 # outage) still use Telegram either way.
 TELEGRAM_CARDS = os.environ.get("TELEGRAM_CARDS", "0") == "1"
+
+# DRY_RUN=1: fetch + prefilter only — no Claude calls, no sends, no state or
+# feed writes. Lets a feature branch run end-to-end with zero side effects.
+DRY_RUN = os.environ.get("DRY_RUN", "0") == "1"
 STATE_FILE = Path(os.environ.get("STATE_FILE", Path(__file__).with_name("state.json")))
 MAX_STATE = 500  # cap remembered IDs so state.json doesn't grow forever
 
@@ -665,12 +669,14 @@ def send_plain_telegram(text):
         return json.loads(resp.read().decode())
 
 
-def send_web_push(article, brief):
+def send_web_push(article, brief, state):
     """Push the card to every subscribed browser (the installed PWA).
 
     Subscriptions live in the PUSH_SUBSCRIPTIONS secret (JSON array) rather
     than the repo — the repo is public and endpoints shouldn't be. No-op
-    until the secret and VAPID key are configured.
+    until the secret and VAPID key are configured. A dead subscription
+    (404/410 from the push service) triggers a Telegram re-pair alert, at
+    most once per 12h — notifications must never fail silently.
     """
     subs_raw = os.environ.get("PUSH_SUBSCRIPTIONS", "")
     pem_file = os.environ.get("VAPID_PEM_FILE", "")
@@ -692,8 +698,11 @@ def send_web_push(article, brief):
         "title": title,
         "body": " · ".join(x for x in (brief.fee, brief.source) if x.strip() not in ("", "—")),
         "url": "./",  # tapping the notification opens the app, not the article
+        # same tag per player: a stage upgrade replaces the older notification
+        # (renotify makes it alert again) instead of piling up
+        "tag": _norm(brief.player)[:40] if _norm(brief.player) not in ("", "—") else None,
     })
-    sent = 0
+    sent, dead = 0, []
     for sub in json.loads(subs_raw):
         try:
             # ttl matters: the default of 0 means "deliver this instant or
@@ -704,13 +713,30 @@ def send_web_push(article, brief):
                     ttl=86400, headers={"Urgency": "high"})
             sent += 1
         except WebPushException as e:
-            print(f"web push error: {e}", file=sys.stderr)
+            code = getattr(getattr(e, "response", None), "status_code", None)
+            print(f"web push error ({code}): {e}", file=sys.stderr)
+            if code in (404, 410):
+                dead.append(sub["endpoint"].split("/")[2])
     print(f"push sent to {sent} subscription(s): {title}")
+    if dead:
+        last = state.get("push_alert_ts", "")
+        now = datetime.now(timezone.utc)
+        if not last or (now - datetime.fromisoformat(last)).total_seconds() > 12 * 3600:
+            try:
+                send_plain_telegram(
+                    f"⚠️ ShimShim: a phone push subscription is dead ({', '.join(dead)}) — "
+                    "notifications are not reaching that device. Open the app → "
+                    "Settings → Enable notifications and send the new code to re-pair."
+                )
+                state["push_alert_ts"] = now.isoformat(timespec="seconds")
+            except Exception as te:  # noqa: BLE001
+                print(f"push re-pair alert failed: {te}", file=sys.stderr)
 
 
 def main():
     state = load_state()
-    write_push_meta()
+    if not DRY_RUN:
+        write_push_meta()
     seen = set(state["sent"])
     deals = state["deals"]  # deal key -> highest stage rank already sent
     interest_sent = set(state["interest"])
@@ -737,6 +763,9 @@ def main():
             continue
         if not is_relevant(article):
             continue  # keyword prefilter — don't waste a Claude call
+        if DRY_RUN:
+            print(f"[dry-run] would brief: {article['title'][:90]}")
+            continue
         title_key = _norm(article["title"])[:80]
         if title_key in briefed_titles:
             # duplicate headline this run — the first copy carries the story
@@ -813,7 +842,7 @@ def main():
         # chat card is opt-in via TELEGRAM_CARDS.
         append_feed(article, brief)
         try:
-            send_web_push(article, brief)
+            send_web_push(article, brief, state)
         except Exception as e:  # noqa: BLE001 — push failure must not block the feed
             print(f"web push error: {e}", file=sys.stderr)
         if TELEGRAM_CARDS:
@@ -833,8 +862,10 @@ def main():
         print(f"sent ({brief.kind}): {brief.player} — "
               f"{brief.from_club} -> {brief.to_club}")
 
-    save_state(state)
-    print(f"done. {sent_count} briefing(s) sent, {len(articles)} scanned.")
+    if not DRY_RUN:
+        save_state(state)
+    print(f"done. {sent_count} briefing(s) sent, {len(articles)} scanned."
+          + (" [dry run]" if DRY_RUN else ""))
 
 
 if __name__ == "__main__":
