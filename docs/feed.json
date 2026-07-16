@@ -1,5 +1,23 @@
 [
  {
+  "id": "6b9b05802c12205a3761073afb6c0231",
+  "ts": "2026-07-16T07:01:48+00:00",
+  "kind": "deal",
+  "stage": "Completed",
+  "player": "Lesley Ugochukwu",
+  "position": "Box-to-box midfielder",
+  "age": "22",
+  "from_club": "Burnley",
+  "to_club": "Galatasaray",
+  "fee": "\u00a33m loan fee (buy option ~\u20ac25m)",
+  "style": "A energetic box-to-box midfielder who contributes at both ends of the pitch, capable of scoring goals and providing assists from central areas.",
+  "fit": "Joins Galatasaray on a season-long loan to maintain top-level exposure after Burnley's relegation, with a buy option suggesting a longer-term project if he impresses in the Super Lig.",
+  "source": "Burnley Express",
+  "outlet": "burnleyexpress",
+  "url": "https://www.burnleyexpress.net/sport/football/burnley-fc/burnley-move-galatasaray-ps3m-loan-8801646",
+  "title": "Burnley man completes move to Turkish giants in initial \u00a33m loan deal"
+ },
+ {
   "id": "tg:FabrizioRomanoTG/63118",
   "ts": "2026-07-16T06:16:34+00:00",
   "kind": "interest",
