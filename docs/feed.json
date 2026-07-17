@@ -1,5 +1,23 @@
 [
  {
+  "id": "40f8731c54e95db84493dc158c7cc560",
+  "ts": "2026-07-17T18:46:38+00:00",
+  "kind": "interest",
+  "stage": "\u2014",
+  "player": "Nico Raskin",
+  "position": "Defensive Midfielder",
+  "age": "25",
+  "from_club": "Rangers",
+  "to_club": "Manchester United",
+  "fee": "\u00a320m\u2013\u00a325m",
+  "style": "A combative, box-to-box defensive midfielder who excels at winning the ball, pressing high, and distributing simply to keep play moving.",
+  "fit": "His energy, physicality and defensive intensity would suit a Manchester United midfield that needs athleticism and ball-winning ability to complement more creative players.",
+  "source": "TEAMtalk / Voetbal Krant",
+  "outlet": "teamtalk",
+  "url": "https://www.teamtalk.com/manchester-united/nicolas-raskin-30m-signing-rangers-man-utd-surprise-transfer",
+  "title": "Cut-price Scotland-based star targeted by Wilcox as Man Utd\u2019s surprise third midfield signing \u2013 report"
+ },
+ {
   "id": "8d57ca395825f50675e890fbcf3a2aef",
   "ts": "2026-07-17T17:46:27+00:00",
   "kind": "deal",
