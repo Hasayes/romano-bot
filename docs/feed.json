@@ -1,5 +1,23 @@
 [
  {
+  "id": "59a54347a88f1cd41894b5b51d5bd99e",
+  "ts": "2026-07-17T07:16:22+00:00",
+  "kind": "deal",
+  "stage": "Completed",
+  "player": "Zeki \u00c7elik",
+  "position": "Right-back",
+  "age": "29",
+  "from_club": "AS Roma",
+  "to_club": "Juventus",
+  "fee": "Free transfer",
+  "style": "An industrious and athletically gifted right-back who excels in defensive duels, covers ground rapidly, and contributes reliably in transition.",
+  "fit": "Provides experienced, immediately available cover and competition at right-back for Juventus, with his Serie A familiarity and international pedigree making him a low-risk, high-value addition.",
+  "source": "Gianluca Di Marzio",
+  "outlet": "yahoo",
+  "url": "https://sports.yahoo.com/articles/juventus-set-sign-roma-zeki-191500649.html",
+  "title": "Juventus set to sign Roma\u2019s Zeki Celik, quick deal done"
+ },
+ {
   "id": "tg:FabrizioRomanoTG/63165",
   "ts": "2026-07-17T06:16:44+00:00",
   "kind": "deal",
