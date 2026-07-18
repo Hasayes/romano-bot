@@ -1,5 +1,23 @@
 [
  {
+  "id": "3dfa27209166abb8eade08c93d55190b",
+  "ts": "2026-07-18T08:26:59+00:00",
+  "kind": "interest",
+  "stage": "\u2014",
+  "player": "Lucas Bergvall",
+  "position": "Central Midfielder",
+  "age": "20",
+  "from_club": "Tottenham Hotspur",
+  "to_club": "Newcastle United",
+  "fee": "\u00a346m bid rejected",
+  "style": "A technically gifted, progressive central midfielder who combines sharp passing, intelligent movement and composure on the ball beyond his years.",
+  "fit": "His ability to control tempo and progress play from midfield would add creativity and dynamism to Newcastle's engine room, providing a long-term foundational presence.",
+  "source": "David Ornstein",
+  "outlet": "teamtalk",
+  "url": "https://www.teamtalk.com/newcastle-united/lucas-bergvall-transfer-news-newcastle-bid-rejected-ornstein-spurs-agreement",
+  "title": "Ornstein confirms rejected Newcastle offer for Tottenham maestro but agreement looks close"
+ },
+ {
   "id": "tg:FabrizioRomanoTG/63224",
   "ts": "2026-07-18T07:01:30+00:00",
   "kind": "deal",
