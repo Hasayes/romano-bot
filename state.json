@@ -1,7 +1,5 @@
 {
   "sent": [
-    "3e5fbccded54239f865d7a7a65ca3ceb",
-    "2ee32e1cd9af87031278c015e6a7fcf4",
     "1a80e385a96509ac0a0a62e4b34af5d2",
     "e2b17a9066cda0f916fc1e552bbe10c9",
     "5902547ddedba16cdec0a36f9d31ce69",
@@ -499,7 +497,9 @@
     "9546cca430f0aa672cb800f965b941de",
     "e92f368adc2ced60c9743ad7430b1cc4",
     "fbec31a1988735a94ec7c15e0b2177c8",
-    "8e5cb50390cb870a29c717d26f372256"
+    "8e5cb50390cb870a29c717d26f372256",
+    "c5a8afa150ff754dc19b41274fa9dd98",
+    "ecf74d8a5989c5dfbca0bea62c8c513d"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -698,11 +698,10 @@
     "interest: garnacho -> chelsea",
     "interest: diomande -> arsenal",
     "interest: lacroix -> arsenal",
-    "interest: lacroix -> chelsea"
+    "interest: lacroix -> chelsea",
+    "interest: rashford -> tottenham"
   ],
   "titles": [
-    "\ud83d\udea8 \ud83e\udd0d \ud83d\udda4 udinese agree deal to sign mergim vojvoda from como contract until june 20",
-    "transfer updates: alvarez, gyokeres, barcola, romero, balogun, others",
     "manchester united transfer news: red devils earn \u20ac12 4m as mason greenwood moves",
     "liverpool want tottenham star who\u2019s been told he can leave after impressive worl",
     "view: moyes may already have everton answer on transfer target who's impressed a",
@@ -1000,6 +999,8 @@
     "chelsea seal british record deal for manchester city target with medical schedul",
     "transfer rumors, news: barcelona set deadline for",
     "transfer news live: arsenal enter diomande race; rogers set for chelsea medical;",
-    "arteta has a plan to deal with saliba injury as serious defensive option emerges"
+    "arteta has a plan to deal with saliba injury as serious defensive option emerges",
+    "chelsea now just \u00a33m away from signing star who\u2019s \u2018keen on a move\u2019 after morgan ",
+    "man utd issue rashford transfer stance as 'plan revealed' - london evening stand"
   ]
 }
