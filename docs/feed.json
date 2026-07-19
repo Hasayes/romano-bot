@@ -1,5 +1,23 @@
 [
  {
+  "id": "56e28b6fc25c819e557b561f2b2fe326",
+  "ts": "2026-07-19T04:16:32+00:00",
+  "kind": "interest",
+  "stage": "\u2014",
+  "player": "Crysencio Summerville",
+  "position": "Winger",
+  "age": "24",
+  "from_club": "West Ham United",
+  "to_club": "Tottenham Hotspur",
+  "fee": "\u20ac45m",
+  "style": "A direct, pacey left winger who excels at running in behind defences, carrying the ball at speed and contributing both goals and assists in transition.",
+  "fit": "His directness and ability to stretch play would provide Tottenham with a dynamic wide option capable of exploiting space behind opposition defensive lines.",
+  "source": "Fabrizio Romano, Sky Sport Italia",
+  "outlet": "yahoo",
+  "url": "https://sports.yahoo.com/articles/roma-table-46-million-offer-161000801.html",
+  "title": "Roma table \u20ac46 million offer to West Ham for Crysencio Summerville"
+ },
+ {
   "id": "1fdf0e9095345c707041ba1100bf80b2",
   "ts": "2026-07-19T03:31:26+00:00",
   "kind": "deal",
