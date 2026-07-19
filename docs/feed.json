@@ -1,5 +1,23 @@
 [
  {
+  "id": "9ee5f5a8b8824bb712178e6509fc7ddf",
+  "ts": "2026-07-19T00:31:35+00:00",
+  "kind": "interest",
+  "stage": "\u2014",
+  "player": "Cristian Romero",
+  "position": "Centre-back",
+  "age": "28",
+  "from_club": "Tottenham Hotspur",
+  "to_club": "FC Barcelona, Real Madrid",
+  "fee": "\u00a340m",
+  "style": "Aggressive, ball-playing centre-back who excels in duels, pressing high and driving out from the back.",
+  "fit": "His intensity and man-marking ability would suit Barcelona's high defensive line and pressing structure, while his World Cup pedigree adds proven top-level experience.",
+  "source": "ESPN UK / TEAMtalk",
+  "outlet": "espn_uk",
+  "url": "https://www.espn.co.uk/football/story/_/id/49389509/transfer-rumors-news-barcelona-real-madrid-atletico-inter-milan-tottenham-argentina-cristian-romero",
+  "title": "Transfer rumors, news: Barcelona, Real Madrid both..."
+ },
+ {
   "id": "00813f149135983c668b6ed569407382",
   "ts": "2026-07-18T21:32:02+00:00",
   "kind": "deal",
