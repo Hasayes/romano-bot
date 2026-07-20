@@ -1,7 +1,5 @@
 {
   "sent": [
-    "e20a7e31e07e015d179647313c6d6d72",
-    "89383e351c17912a3423c568f6c07d89",
     "69ded94456611a0f5b9260ed27c5ed39",
     "14ef17099a2a39c7f5444ba8a24e9fcd",
     "c2c16ef24bd8420ea245cad8a5a93d2d",
@@ -499,7 +497,9 @@
     "2de19d3b81e69f6ac0915cc174c30c69",
     "tg:FabrizioRomanoTG/63359",
     "tg:FabrizioRomanoTG/63360",
-    "68e213c844b19468b84fd97ed67819c8"
+    "68e213c844b19468b84fd97ed67819c8",
+    "92b077c132bae550c1e4bf922772542b",
+    "tg:FabrizioRomanoTG/63362"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -700,8 +700,6 @@
     "interest: garnacho -> atletico madrid"
   ],
   "titles": [
-    "\u201cgreat market opportunity\u201d \u2013 ornstein\u2019s man united transfer update on \u201cexcellent",
-    "chelsea look to hijack manchester united move for manu kone",
     "\ud83d\udea8 \ud83c\udf33 xaver schlager to nottingham forest, here we go! deal in place for the midfi",
     "manchester united in \u2018pole position\u2019 to sign yan diomande",
     "\ud83d\udea8 \u26aa\ufe0f \u26ab\ufe0f juventus keep working on randal kolo muani deal with psg as negotiations",
@@ -999,6 +997,8 @@
     "liverpool submit barcola bid as \u00a385m reds star expects real madrid move",
     "\ud83d\udea8 \ud83c\uddf3\ud83c\uddf1 as roma are set to send a third official bid for crysencio summerville to w",
     "\ud83d\udfe3 \ud83d\udd35 \ud83c\udde7\ud83c\uddf7 official, confirmed joao gomes joins aston villa on \u00a335m deal from wolves",
-    "arsenal news: morgan rogers' three reasons for snub as gunners enquire about \u00a311"
+    "arsenal news: morgan rogers' three reasons for snub as gunners enquire about \u00a311",
+    "liverpool news: deal agreed for third summer signing as psg star set to leave",
+    "\ud83d\udea8 \u2764\ufe0f \ud83e\udd0d official: konrad laimer signs new deal at fc bayern valid until june 2029"
   ]
 }
