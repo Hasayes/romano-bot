@@ -1,6 +1,5 @@
 {
   "sent": [
-    "16f6b27698cca9d44995cad308dba04d",
     "e0e47bf6179317d0e9d2a83bee10b001",
     "c2e34f5af8fb52c5307e0e3f61595927",
     "11b648bb0500f8d64e8341500fb12dbd",
@@ -499,7 +498,8 @@
     "d4d75a3306a6cf86079fa96bf2e0f118",
     "753d063350ecc8c9bcb05c4aa324e2ec",
     "7b6ecf5ff51f18ea3fff6608103de822",
-    "595d9baaf15235adb2b022650d889cf4"
+    "595d9baaf15235adb2b022650d889cf4",
+    "c76729abc1f01a2971c4e44a10abbfa0"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -700,10 +700,10 @@
     "interest: garnacho -> napoli",
     "interest: garnacho -> atletico madrid",
     "interest: nelson -> manchester united",
-    "interest: barcola -> manchester united"
+    "interest: barcola -> manchester united",
+    "interest: stones -> arsenal"
   ],
   "titles": [
-    "transfer rumors: shock club plan rashford move; olise makes real madrid decision",
     "marcus rashford: carrick to take a final call after pre-season",
     "man utd hold \u2018positive talks\u2019 over third midfield signing as fabrizio romano rev",
     "\ud83d\udea8 \ud83c\uddf2\ud83c\uddfd hernan crespo to sign for atlas, deal done and here we go! contract until 2",
@@ -1002,6 +1002,7 @@
     "ipswich 'reach verbal agreement' to sign defender who scored at world cup - repo",
     "journalist claims other clubs are still in mix for liverpool linked attacker",
     "\u2018agreed personal terms\u2019 \u2013 fabrizio hints at surprise liverpool transfer twist on",
-    "man utd offered chance to sign top liverpool, arsenal target as psg make huge u-"
+    "man utd offered chance to sign top liverpool, arsenal target as psg make huge u-",
+    "arsenal want shock free transfer from pl rivals as tzolis medical timeline is re"
   ]
 }
