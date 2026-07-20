@@ -1,7 +1,5 @@
 {
   "sent": [
-    "1802c63b7a5220d5ca8be5159cc155a3",
-    "fea8d36c53c0bc65e33f43348e134f6f",
     "890bf1938d5ea37d3af05d84b2d3fe72",
     "341a933a8821e64a2660cc98e8369c4e",
     "ca785327cb72c3affd8e99f9be6db7ef",
@@ -499,7 +497,9 @@
     "6fe05f0e2938b4c5e14ad0843bc76df0",
     "48fe8be49a7a554cf3f5728f956bd277",
     "9e8ceb0aff7351d5a22a7814a1ac811c",
-    "87a2e70362321b554dc5eefe7dc2e99a"
+    "87a2e70362321b554dc5eefe7dc2e99a",
+    "9ffb8abe636b7ea284d73bcaa0e5d2d7",
+    "2418df59a070c12bdebc7571ff168202"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -700,11 +700,10 @@
     "interest: lacroix -> arsenal",
     "interest: lacroix -> chelsea",
     "interest: rashford -> tottenham",
-    "interest: bergvall -> chelsea"
+    "interest: bergvall -> chelsea",
+    "interest: garnacho -> aston villa"
   ],
   "titles": [
-    "tottenham propose romero in inter talks as argentine seeks summer exit; spence d",
-    "chelsea in talks to hijack \u00a351m man utd midfield move in stunning twist",
     "chelsea don\u2019t want to pay \u20ac60m for elite starter \u2013 but one factor could change b",
     "mid-table premier league teams could be the big winners from barcelona star\u2019s de",
     "man united 'discuss' real madrid transfer as michael carrick eyes another midfie",
@@ -1002,6 +1001,8 @@
     "arsenal transfer news: deal agreed for 18-year-old centre-back after tottenham '",
     "tottenham demand \u00a360m for their 20yo wantaway even as nottingham forest and newc",
     "man united shut down ac milan interest in amad diallo",
-    "tottenham confident in signing manchester city winger \u2013 latest transfer reports"
+    "tottenham confident in signing manchester city winger \u2013 latest transfer reports",
+    "chelsea set to reject all joao pedro bids this summer, even offers exceeding \u00a310",
+    "alejandro garnacho: man united eyeing aston villa\u2019s plan for chelsea star"
   ]
 }
