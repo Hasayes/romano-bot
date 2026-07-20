@@ -1,7 +1,5 @@
 {
   "sent": [
-    "62c9b85fff3fc715a7095c1bb695be50",
-    "0f7bcf1a9abf0c045031e7fc6266ee62",
     "515530bf143cf8475f580e11845097ec",
     "f55500fec8db677ac1295eb175b558dc",
     "1c6880584160169f6bc5d66092e7f856",
@@ -499,7 +497,9 @@
     "adeb3ef2662f27896cb9a9f1b7b9a35d",
     "3c348cbc08fe485cf904d2cacbffd899",
     "c51fdd120c975febea65deee6055608e",
-    "5ef3d5976dd416ca6f2cdb14b96aa7fc"
+    "5ef3d5976dd416ca6f2cdb14b96aa7fc",
+    "675f18db6f36cca5b542a6726dab196c",
+    "tg:FabrizioRomanoTG/63370"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -609,7 +609,8 @@
     "rogers -> chelsea": 3,
     "martinez -> liverpool": 2,
     "thompson -> manchester united": 2,
-    "diop -> ipswich town": 1
+    "diop -> ipswich town": 1,
+    "digne -> psg": 3
   },
   "interest": [
     "interest: alvarez -> arsenal",
@@ -700,8 +701,6 @@
     "interest: garnacho -> atletico madrid"
   ],
   "titles": [
-    "burnley man completes move to turkish giants in initial \u00a33m loan deal",
-    "napoli send first zeballos offer to boca juniors, just under \u20ac10m",
     "man utd want camavinga as part of midfield rebuild - tribalfootball",
     "fabrizio romano reveals chelsea \u2018working\u2019 to sign french star who\u2019s \u2018keen on a m",
     "aston villa hijack a \u20ac60m signing: good option for emery?",
@@ -999,6 +998,8 @@
     "liverpool latest: transfer green light received for psg star as next signing nea",
     "world cup final ends in ugly brawl as paredes attacks spain players after whistl",
     "transfer news live: arsenal three-man shortlist; rogers in chelsea medical; man ",
-    "romano confirms premier league rival discuss move to sign \u2018fantastic\u2019 chelsea pl"
+    "romano confirms premier league rival discuss move to sign \u2018fantastic\u2019 chelsea pl",
+    "medical scheduled: liverpool make decisive breakthrough in midfielder chase",
+    "\ud83d\udd34 \ud83d\udd35 \ud83d\udd10 deal confirmed since last week: lucas digne, new paris saint-germain playe"
   ]
 }
