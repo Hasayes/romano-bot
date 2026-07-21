@@ -210,8 +210,10 @@ CLASSIFY_SYSTEM = (
     "not the seller). The watched clubs, for deals not yet agreed: "
     f"{', '.join(WATCHED_CLUBS)}. "
     "Interest from any other club does NOT count.\n"
-    "- ONE briefing = ONE player. If the story covers several players' "
-    "moves, extract only the most newsworthy single player.\n"
+    "- ONE briefing = ONE player, and the player must be NAMED. A story "
+    "about an unnamed target ('a third midfielder', 'a new winger') is "
+    "kind='none'. If the story covers several players' moves, extract only "
+    "the most newsworthy single player.\n"
     "- kind='none' for everything else: contract renewals/extensions, "
     "injuries, interest from non-watched clubs, or transfer-window chatter. "
     "ALSO kind='none' if the story looks like recycled OLD news — e.g. the "
@@ -278,8 +280,10 @@ BRIEF_SYSTEM = (
     "not the seller). The watched clubs, for deals not yet agreed: "
     f"{', '.join(WATCHED_CLUBS)}. "
     "Interest from any other club does NOT count.\n"
-    "- ONE briefing = ONE player. If the story covers several players' "
-    "moves, extract only the most newsworthy single player.\n"
+    "- ONE briefing = ONE player, and the player must be NAMED. A story "
+    "about an unnamed target ('a third midfielder', 'a new winger') is "
+    "kind='none'. If the story covers several players' moves, extract only "
+    "the most newsworthy single player.\n"
     "- kind='none' for everything else: contract renewals/extensions, "
     "injuries, interest from non-watched clubs, players only being offered "
     "or made available, or general transfer-window chatter.\n"
@@ -499,6 +503,32 @@ def _article_prompt(article):
         f"Summary: {article['desc']}\n"
         f"Source: {article['source']}"
     )
+
+
+VALID_STAGES = {"here we go", "medical", "completed"}
+
+
+def brief_problems(brief):
+    """Structural lint a card must pass before publishing.
+
+    A card with missing core facts ("—" player, deal without clubs) looks
+    broken in the app and can't dedup properly — better no card than an
+    empty one; the story returns via other headlines with fuller facts.
+    """
+    problems = []
+    player = brief.player.strip()
+    if player in ("", "—") or len(player) < 2:
+        problems.append("no player")
+    elif len(player) > 60:
+        problems.append("implausible player name")
+    if brief.to_club.strip() in ("", "—"):
+        problems.append("no destination/suitor club")
+    if brief.kind == "deal":
+        if brief.from_club.strip() in ("", "—"):
+            problems.append("deal without origin club")
+        if _norm(brief.stage) not in VALID_STAGES:
+            problems.append(f"invalid stage {brief.stage!r}")
+    return problems
 
 
 def classify_article(client, article):
@@ -1028,6 +1058,11 @@ def main():
         if brief.kind == "deal" and known_club(brief.from_club) and \
                 _norm_club(brief.from_club) == _norm_club(brief.to_club):
             brief.kind = "none"  # same-club "transfer" is a parse error
+        if brief.kind != "none":
+            gate = brief_problems(brief)
+            if gate:
+                print(f"skipped (incomplete card: {', '.join(gate)}): {article['title']}")
+                brief.kind = "none"
         if brief.kind == "none":
             print(f"skipped (no deal or watched-club interest): {article['title']}")
             continue

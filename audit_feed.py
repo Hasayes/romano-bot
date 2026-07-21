@@ -33,6 +33,24 @@ class Audit(BaseModel):
 def main():
     cutoff = (datetime.now(timezone.utc) - timedelta(days=AUDIT_DAYS)).isoformat()
     feed = json.loads(FEED_FILE.read_text())
+
+    # structural lint over the WHOLE feed first — free, catches broken cards
+    # (empty player, deal without clubs) regardless of age
+    from shimshim_bot import TransferBrief, brief_problems
+    broken = []
+    for c in feed:
+        b = TransferBrief(kind=c["kind"] if c["kind"] in ("deal", "interest") else "none",
+                          stage=c.get("stage", "—"), player=c.get("player", ""),
+                          position="", age="", from_club=c.get("from_club", ""),
+                          to_club=c.get("to_club", ""), fee="", style="", fit="", source="")
+        probs = brief_problems(b) if b.kind != "none" else []
+        if probs:
+            broken.append(f"• {c.get('player') or '(no player)'} ({c.get('ts', '')[:10]}): {', '.join(probs)}")
+    if broken:
+        send_plain_telegram("🧱 ShimShim structural audit: broken cards in the feed:\n"
+                            + "\n".join(broken[:15])
+                            + "\nAsk Claude to clean these up.")
+        print(f"structural: {len(broken)} broken card(s) flagged")
     cards = [i for i in feed if i["ts"] >= cutoff][:MAX_CARDS]
     if not cards:
         print("nothing to audit")
