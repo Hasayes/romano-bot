@@ -190,6 +190,8 @@ async function loadFeed() {
     // the bot commits them
     const r = await fetch(`feed.json?t=${Date.now()}`, { cache: "no-cache" });
     feed = await r.json();
+    // last-resort shield: never render a structurally broken card
+    feed = feed.filter((i) => known(i.player) && known(i.to_club));
   } catch {
     feed = [];
   }
@@ -370,4 +372,4 @@ loadFeed().then(() => {
   else if (location.hash.startsWith("#club=")) openClub(decodeURIComponent(location.hash.slice(6)));
 });
 setInterval(loadFeed, 5 * 60 * 1000);
-$("#version").textContent = "ShimShim v3.3";
+$("#version").textContent = "ShimShim v3.4";
