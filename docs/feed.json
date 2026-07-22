@@ -1,5 +1,24 @@
 [
  {
+  "id": "e23083b7409a30881d6410778a481aba",
+  "ts": "2026-07-22T05:30:36+00:00",
+  "kind": "interest",
+  "photo": "https://r2.thesportsdb.com/images/media/player/cutout/ihgav61758216246.png/small",
+  "stage": "\u2014",
+  "player": "Andreas Schjelderup",
+  "position": "Winger",
+  "age": "\u2014",
+  "from_club": "Benfica",
+  "to_club": "Tottenham Hotspur",
+  "fee": "\u2014",
+  "style": "Dynamic left-sided winger with pace and technical ability.",
+  "fit": "Could provide attacking depth and competition on Tottenham's flanks.",
+  "source": "football365",
+  "outlet": "football365",
+  "url": "https://www.football365.com/news/tottenham-risking-liverpool-chelsea-hijack-for-seventh-signing-despite-being-most-advanced-club",
+  "title": "Tottenham risking Liverpool, Chelsea hijack for seventh signing despite being most advanced club"
+ },
+ {
   "id": "b37295dcd3a164a51c2a5a52aa08acf3",
   "ts": "2026-07-22T04:15:57+00:00",
   "kind": "deal",
