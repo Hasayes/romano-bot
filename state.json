@@ -1,7 +1,5 @@
 {
   "sent": [
-    "b3a139e06115b01958676ef37d3ecb2e",
-    "3a9f284b48dc1fd1ab8a052ce9d5b241",
     "79b26b43b1a51a375de53ebdde403a95",
     "4383d5e126511cf3a6800fe6308c586a",
     "aecd98b4e766bc36b7df488d468f317f",
@@ -499,7 +497,9 @@
     "d8c5e18f8c75b78b2fab0faafa2a9eb1",
     "tg:FabrizioRomanoTG/63453",
     "tg:FabrizioRomanoTG/63454",
-    "95ff187332af55df5d132d7bc1837f26"
+    "95ff187332af55df5d132d7bc1837f26",
+    "e366cc83913ddc0e4a23fee4ae6be0e5",
+    "tg:FabrizioRomanoTG/63456"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -616,7 +616,8 @@
     "lankshear -> middlesbrough": 3,
     "adeyemi -> barcelona": 3,
     "summerville -> al-hilal": 2,
-    "garnacho -> aston villa": 2
+    "garnacho -> aston villa": 2,
+    "summerville -> al hilal": 1
   },
   "interest": [
     "interest: alvarez -> arsenal",
@@ -721,8 +722,6 @@
     "interest: rashford -> tottenham"
   ],
   "titles": [
-    "\ud83d\udea8 barca president laporta on catalunya radio: \u201cgil marin\u2019s words? i respect ever",
-    "'medical booked' - fabrizio romano hints at arsenal next signing after tzolis",
     "\ud83d\udea8 \ud83d\udd34 \u26aa\ufe0f elijah upson to arsenal, here we go! agreement signed today for 18 year o",
     "brilliant, andoni iraola confirms liverpool working on massive deal",
     "fabrizio romano confirms where contract deal puts dominik szoboszlai on liverpoo",
@@ -1020,7 +1019,9 @@
     "another missed target for arsenal? prem club \u201cin advanced talks\u201d to sign diomand",
     "\ud83d\udea8 \ud83e\udda2 swansea have completed all documents today to sign joseph opoku as new winge",
     "\ud83d\udea8 \ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f excl: st mirren have agreed a deal to sign ghana u20 international abd",
-    "florentino perez open to signing world cup winner for real madrid \u2013 report"
+    "florentino perez open to signing world cup winner for real madrid \u2013 report",
+    "rodri greenlights man city exit as world cup winning midfielder looks for new ad",
+    "\ud83d\udea8 \ud83d\udd35 breaking: crysencio summerville to al hilal, here we go! verbal agreement do"
   ],
   "tg_update_offset": 263617426,
   "photos": {
