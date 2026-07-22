@@ -1,5 +1,24 @@
 [
  {
+  "id": "b37295dcd3a164a51c2a5a52aa08acf3",
+  "ts": "2026-07-22T04:15:57+00:00",
+  "kind": "deal",
+  "photo": "https://r2.thesportsdb.com/images/media/player/cutout/b51rjk1756984653.png/small",
+  "stage": "Medical",
+  "player": "Crysencio Summerville",
+  "position": "Left winger",
+  "age": "24",
+  "from_club": "West Ham United",
+  "to_club": "Al-Hilal",
+  "fee": "\u00a368m",
+  "style": "An explosive, direct winger with quick feet, dribbling ability and a sharp eye for goal.",
+  "fit": "Al-Hilal add a dynamic, proven European-level attacker fresh off a strong World Cup to bolster their Saudi Pro League squad.",
+  "source": "Robert O'Connor / Standard Sport",
+  "outlet": "yahoo",
+  "url": "https://uk.sports.yahoo.com/news/crysencio-summerville-saga-set-belated-160308582.html",
+  "title": "Crysencio Summerville saga set for belated conclusion as medical booked for \u00a368m West Ham exit"
+ },
+ {
   "id": "a46f1ce9738ef42c030ca17d87094d33",
   "ts": "2026-07-22T00:45:37+00:00",
   "kind": "interest",
