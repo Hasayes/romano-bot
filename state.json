@@ -1,6 +1,5 @@
 {
   "sent": [
-    "883f10cf4182a03fa622247ca4530470",
     "ed6bbc5f38859aa2ab124eb5fc4215fa",
     "adc7e68326d64d24ab50cfa359aa4367",
     "1efab36392d4dc05b5b64fedd39cfc49",
@@ -499,7 +498,8 @@
     "fd4221f8261a78515d7f7e7d544c195f",
     "be61407ae1d3aff6047c68f0f5996710",
     "3ff1809e158215216617fb42b573ac19",
-    "dba5f8710a864973db7f88664ae68ba2"
+    "dba5f8710a864973db7f88664ae68ba2",
+    "d6393bc7906308f7330bd877aa8ab87d"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -720,10 +720,10 @@
     "interest: rashford -> chelsea",
     "interest: rashford -> arsenal",
     "interest: rashford -> tottenham",
-    "interest: zaire-emery -> manchester united"
+    "interest: zaire-emery -> manchester united",
+    "interest: asencio -> liverpool"
   ],
   "titles": [
-    "done deal: oulai flies out for fiorentina medical, \u20ac29m plus bonus from trabzons",
     "\ud83d\udea8 manchester united plan for marcus rashford to return to training for pre seaso",
     "\ud83d\udea8 \u26aa\ufe0f direct talks between tottenham and man city for savinho have been ongoing f",
     "liverpool: fabrizio romano reveals truth on mohamed salah \u2018agreement\u2019 after euro",
@@ -1022,7 +1022,8 @@
     "romano says emery sees garnacho reaching \u2018next level\u2019 at aston villa as morgan r",
     "wolverhampton wanderers training chaos as wantaway striker refuses to leave summ",
     "\u2018advanced talks\u2019 \u2013 fabrizio romano says liverpool target closing in on half-pric",
-    "man utd reach final transfer decision on marcus rashford as tottenham prepare bi"
+    "man utd reach final transfer decision on marcus rashford as tottenham prepare bi",
+    "liverpool could sign raul asencio this summer after surprise fabrizio romano upd"
   ],
   "tg_update_offset": 263617426,
   "photos": {
@@ -1163,6 +1164,7 @@
     "emersonn": "",
     "mario martin": "",
     "takato yamamoto": "",
-    "warren zaire-emery": "https://r2.thesportsdb.com/images/media/player/cutout/fjxbac1766335583.png/small"
+    "warren zaire-emery": "https://r2.thesportsdb.com/images/media/player/cutout/fjxbac1766335583.png/small",
+    "raul asencio": "https://r2.thesportsdb.com/images/media/player/cutout/7pk52z1768499125.png/small"
   }
 }
