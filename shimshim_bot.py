@@ -673,6 +673,56 @@ def _esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def _wikipedia_photo(player, clubs_text):
+    """Second-chance lookup: Wikipedia disambiguates namesakes properly.
+
+    A candidate page's photo is accepted only when the page's own intro
+    mentions one of the card's clubs — that text names the person's club,
+    so a match confirms identity (the Alex Scott namesake trap). Uses the
+    batch action API (one call for all candidates) because the REST
+    summary endpoint throttles anonymous per-page bursts.
+    """
+    want = {w for w in _norm(clubs_text.replace("|", " ")).split() if len(w) > 3}
+    surname = _norm(player).split()[-1] if _norm(player) else ""
+    try:
+        hits = _get_json(
+            "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json"
+            "&srlimit=5&srsearch=" + urllib.parse.quote(f"{player} footballer")
+        )["query"]["search"]
+        name_parts = _norm(player).split()
+        first = name_parts[0] if len(name_parts) > 1 else ""
+        # surname AND first name must appear in the title: Elijah Upson's
+        # search surfaced his father Matthew Upson (also ex-Arsenal, so the
+        # club check alone passed him)
+        titles = [h["title"] for h in hits[:5]
+                  if surname in _norm(h.get("title", ""))
+                  and (not first or first in _norm(h.get("title", "")))]
+        if not titles:
+            return ""
+        data = _get_json(
+            "https://en.wikipedia.org/w/api.php?action=query&format=json"
+            "&prop=extracts%7Cpageimages&exintro=1&explaintext=1&exlimit=5"
+            "&piprop=thumbnail&pithumbsize=330&titles="
+            + urllib.parse.quote("|".join(titles))
+        )
+        pages = (data.get("query") or {}).get("pages") or {}
+        # preserve search ranking, not the API's arbitrary page order
+        by_title = {p.get("title"): p for p in pages.values()}
+        for title in titles:
+            p = by_title.get(title) or {}
+            extract = _norm(p.get("extract") or "")
+            if "footballer" not in extract and "football player" not in extract:
+                continue
+            if not any(w in extract.split() for w in want):
+                continue
+            thumb = (p.get("thumbnail") or {}).get("source", "")
+            if thumb:
+                return thumb
+    except Exception as e:  # noqa: BLE001
+        print(f"wikipedia photo lookup failed for {player}: {e}", file=sys.stderr)
+    return ""
+
+
 def lookup_player_photo(player, clubs_text, state):
     """Best-effort player photo from TheSportsDB (free tier).
 
@@ -714,6 +764,8 @@ def lookup_player_photo(player, clubs_text, state):
         if cand:
             pic = cand.get("strCutout") or cand.get("strThumb") or ""
             photo = pic + "/small" if pic else ""
+        if not photo:
+            photo = _wikipedia_photo(player, clubs_text)
     except Exception as e:  # noqa: BLE001 — photos are decoration, never fatal
         print(f"photo lookup failed for {player}: {e}", file=sys.stderr)
         return ""  # transient failure (e.g. rate limit) — do NOT cache as a miss
