@@ -85,7 +85,9 @@ def visual_photo_check(client, cards):
         "- visible kit/branding clearly belonging to none of the listed "
         "clubs' colours (allow national teams, training wear, old clubs)\n"
         "- obviously the wrong famous person\n"
-        "Unremarkable or ambiguous photos are plausible — only flag clear "
+        "NOT red flags: hair colour or style differences (players dye and "
+        "restyle constantly), kits of a PREVIOUS or LOAN club, national "
+        "team kits, training wear. Unremarkable or ambiguous photos are plausible — only flag clear "
         "mismatches.")})
     resp = client.messages.parse(
         model=CLAUDE_MODEL,
