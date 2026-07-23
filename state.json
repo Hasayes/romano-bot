@@ -1,7 +1,5 @@
 {
   "sent": [
-    "308b2efc2cbed4962bf551c9c1d36c16",
-    "fe0be006b67193991d5aabbb1138b9f7",
     "91c3e3ccf20e840d84e45f6b55805607",
     "58bf1f44c5f8151df02179479ced7186",
     "33b2987c9592d47b2478748cd3f80a32",
@@ -499,7 +497,9 @@
     "260d4c6379613510ab0b5a4f21df7ed1",
     "d62c92fbd0359fcbce50393d2ca8674d",
     "d09101d6e200c54750a6a8019b23adca",
-    "3565539a801ea17c6ede461358201a10"
+    "3565539a801ea17c6ede461358201a10",
+    "c0e5bb0b7685b7a42a656ab82ca2a659",
+    "d9aa6c54dd9a25c6f194fe64146cad51"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -727,8 +727,6 @@
     "interest: akliouche -> liverpool"
   ],
   "titles": [
-    "roma table \u20ac46 million offer to west ham for crysencio summerville",
-    "\u274c florentino perez doesn\u2019t want rodri hernandez",
     "chelsea beat arsenal to record-breaking signing after agreement reached",
     "chelsea, aston villa reach verbal agreement for \u00a3117m morgan rogers transfer \u2014 r",
     "\ud83d\udea8 barcelona president joan laporta: \u201cwe have made a very good offer for julian a",
@@ -1026,7 +1024,9 @@
     "romano: man utd could sign manu kone for much lower fee",
     "scottish side st mirren agree deal to sign ghanaian youngster abdul hakim sulema",
     "how crysencio summerville's 'crazy 48 hours' unfolded as medical finally authori",
-    "romano: summerville accepts al hilal\u2019s offer"
+    "romano: summerville accepts al hilal\u2019s offer",
+    "premier league club not pursuing loan deal for real madrid wonderkid despite rum",
+    "fabrizio romano confirms crucial option clause of garnacho loan deal to aston vi"
   ],
   "tg_update_offset": 263617426,
   "photos": {
