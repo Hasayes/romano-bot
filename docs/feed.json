@@ -1,5 +1,24 @@
 [
  {
+  "id": "00b8b5954e99d51def2989c160d99e10",
+  "ts": "2026-07-23T00:16:13+00:00",
+  "kind": "deal",
+  "photo": "",
+  "stage": "Here we go",
+  "player": "Mishel Nduka",
+  "position": "Midfielder",
+  "age": "16",
+  "from_club": "Arsenal",
+  "to_club": "Manchester City",
+  "fee": "Free transfer",
+  "style": "A technically gifted central midfielder with strong progression qualities, recognised by England youth setups for his ability on the ball and intelligent movement.",
+  "fit": "Joins Man City's academy on scholarship terms, where his technical development and youth international pedigree make him a strong long-term prospect within City's player development pipeline.",
+  "source": "David Ornstein (The Athletic)",
+  "outlet": "yahoo",
+  "url": "https://sports.yahoo.com/articles/hugo-viana-man-city-pip-113000489.html",
+  "title": "Hugo Viana and Man City pip Arsenal to England superstar signing as summer rebuild progresses"
+ },
+ {
   "id": "18ba7cdc149a0ff9925491796d3c2060",
   "ts": "2026-07-22T22:00:51+00:00",
   "kind": "interest",

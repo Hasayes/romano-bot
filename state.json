@@ -1,11 +1,5 @@
 {
   "sent": [
-    "d7667dfdc08d87918ba503360d97b4ad",
-    "335630a5c720fb5693ceae1bb20874b4",
-    "62beb8ca59e5ce98a5cbad6454b7b8cd",
-    "06c8b3c6b460368a25ecf6752d8d4ce5",
-    "tg:FabrizioRomanoTG/63141",
-    "tg:FabrizioRomanoTG/63142",
     "tg:FabrizioRomanoTG/63143",
     "tg:FabrizioRomanoTG/63144",
     "tg:FabrizioRomanoTG/63145",
@@ -499,7 +493,13 @@
     "9c12777d80276edc984c0d3f03dd2475",
     "144e9b3c00e85adc87838a57a821a15d",
     "0b9a06a7d36e30a43affb2d08d534238",
-    "tg:FabrizioRomanoTG/63463"
+    "tg:FabrizioRomanoTG/63463",
+    "3ce1f8802f1fdf366c9434e34de95299",
+    "bf9c5297251345478922d8bd57691c5c",
+    "00b8b5954e99d51def2989c160d99e10",
+    "9a44127cf9f4868dfb1626496031ff11",
+    "f6173069b50df13a83a21bedd9ed0f2b",
+    "7128cb22d8746dd081e81b4f6642c7c2"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -617,7 +617,8 @@
     "adeyemi -> barcelona": 3,
     "summerville -> al-hilal": 2,
     "garnacho -> aston villa": 2,
-    "summerville -> al hilal": 1
+    "summerville -> al hilal": 1,
+    "nduka -> manchester city": 1
   },
   "interest": [
     "interest: alvarez -> arsenal",
@@ -725,12 +726,6 @@
     "interest: mastantuono -> tottenham"
   ],
   "titles": [
-    "\ud83d\udea8 no fresh contacts so far between arsenal and bradley barcola\u2019s camp or psg aft",
-    "\ud83d\udea8 \ud83d\udd35 xabi alonso, involved in chelsea secret mission to get morgan rogers \ud83d\udcde #cfc ",
-    "\u201chere we go\u201d for arsenal to sign tottenham defender, says fabrizio romano in mor",
-    "\ud83d\udd35 \ud83c\udde7\ud83c\uddf7 huge investment on rogers won\u2019t change chelsea plans to keep joao pedro eve",
-    "romano reveals tottenham are waiting for \u2018green light\u2019 for seventh signing as he",
-    "\ud83c\udfc3\ud83c\udffc\u200d\u2642\ufe0f \ud83c\udde6\ud83c\uddf7 argentina completed their last training session before the world cup fi",
     "tottenham: romano claims only final \u2018green light\u2019 in way of next signing; \u00a350m s",
     "liverpool have the chance to sign psg forward as fabrizio romano confirms exit",
     "\ud83d\udea8 amad diallo\u2019s camp informed in june on man united stance: no intention to sell",
@@ -1024,7 +1019,13 @@
     "romano: premier league team poach \u20ac80m chelsea and arsenal target for half price",
     "real madrid ready to green light teenage gem\u2019s loan with more than five clubs ke",
     "transfer updates: rashford, camavinga, diomande, alex scott, guimaraes, others",
-    "\ud83d\udea8 \u26aa\ufe0f real madrid have given green light to franco mastantuono\u2019s loan but no chan"
+    "\ud83d\udea8 \u26aa\ufe0f real madrid have given green light to franco mastantuono\u2019s loan but no chan",
+    "how much manchester united will earn from alejandro garnacho's transfer to aston",
+    "psg reach decision on selling warren zaire-emery to manchester united",
+    "hugo viana and man city pip arsenal to england superstar signing as summer rebui",
+    "man utd prepare \u00a351m bid for next midfield signing who is in a precarious positi",
+    "man utd transfer news: red devils dealt gutting double setback over \u201cdream\u201d \u00a368m",
+    "borussia dortmund increase karetsas offer to \u20ac30m+"
   ],
   "tg_update_offset": 263617426,
   "photos": {
@@ -1167,6 +1168,7 @@
     "takato yamamoto": "",
     "warren zaire-emery": "https://r2.thesportsdb.com/images/media/player/cutout/fjxbac1766335583.png/small",
     "raul asencio": "https://r2.thesportsdb.com/images/media/player/cutout/7pk52z1768499125.png/small",
-    "franco mastantuono": "https://r2.thesportsdb.com/images/media/player/cutout/pgq83k1762604333.png/small"
+    "franco mastantuono": "https://r2.thesportsdb.com/images/media/player/cutout/pgq83k1762604333.png/small",
+    "mishel nduka": ""
   }
 }
