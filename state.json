@@ -1,7 +1,5 @@
 {
   "sent": [
-    "197496a1f319b11c3329432187955eaa",
-    "2299c3eb941a5de60dc6a4b9fa7bf943",
     "49fa28a46208fa39b67fc8953978eca1",
     "199776d6dd7184abfa6965991f0a49d0",
     "1ed64d2143550d175b764e0477c67ef4",
@@ -499,7 +497,9 @@
     "d9aa6c54dd9a25c6f194fe64146cad51",
     "1cb229e106458e892c63e6a949edee16",
     "tg:FabrizioRomanoTG/63471",
-    "791fe792efc1ed2e08e76f91a1a3d6ea"
+    "791fe792efc1ed2e08e76f91a1a3d6ea",
+    "01ddabc6bd5648692770c87a972c9632",
+    "tg:FabrizioRomanoTG/63472"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -724,11 +724,10 @@
     "interest: zaire-emery -> manchester united",
     "interest: asencio -> liverpool",
     "interest: mastantuono -> tottenham",
-    "interest: akliouche -> liverpool"
+    "interest: akliouche -> liverpool",
+    "interest: cancelo -> barcelona"
   ],
   "titles": [
-    "chelsea hijack arsenal to sign rogers in british-record deal",
-    "chelsea hijack arsenal bid to seal british record \u00a3117m morgan rogers deal",
     "chelsea have already booked morgan rogers medical",
     "juventus striker hunt still focused on pellegrino, kolo muani as talks continue",
     "tottenham confident of savinho signing - sunday's gossip",
@@ -1026,7 +1025,9 @@
     "fabrizio romano confirms crucial option clause of garnacho loan deal to aston vi",
     "tottenham enquire about loan deal for real madrid teenager, \u2018this\u2019 london rival ",
     "\ud83d\udea8 understand liverpool remain the club showing most concrete interest in bradley",
-    "romano issues update on man utd signing zaire-emery from psg"
+    "romano issues update on man utd signing zaire-emery from psg",
+    "the clever psr strategy behind chelsea and aston villa\u2019s alejandro garnacho deal",
+    "\ud83d\udea8 barcelona remain confident to get joao cancelo deal done with talks to continu"
   ],
   "tg_update_offset": 263617426,
   "photos": {
@@ -1170,6 +1171,7 @@
     "warren zaire-emery": "https://r2.thesportsdb.com/images/media/player/cutout/fjxbac1766335583.png/small",
     "raul asencio": "https://r2.thesportsdb.com/images/media/player/cutout/7pk52z1768499125.png/small",
     "franco mastantuono": "https://r2.thesportsdb.com/images/media/player/cutout/pgq83k1762604333.png/small",
-    "mishel nduka": ""
+    "mishel nduka": "",
+    "joao cancelo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Joao_Cancelo_Croatia_v_Portugal_2_July_2026-002.jpg/330px-Joao_Cancelo_Croatia_v_Portugal_2_July_2026-002.jpg"
   }
 }
