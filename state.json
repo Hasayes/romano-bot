@@ -1,8 +1,5 @@
 {
   "sent": [
-    "63f1c925146d133c3877c7e70c8c7577",
-    "f3e948d9dd37e763386a001a60cea2b1",
-    "4966d23856d652d29545dee7b3bb2fcc",
     "10f54d6d271fc4fc82879c8c91444ca0",
     "tg:FabrizioRomanoTG/63165",
     "2e8d69c3c4ae904a6b4d981ad7731155",
@@ -499,7 +496,10 @@
     "tg:FabrizioRomanoTG/63478",
     "tg:FabrizioRomanoTG/63479",
     "tg:FabrizioRomanoTG/63480",
-    "tg:FabrizioRomanoTG/63483"
+    "tg:FabrizioRomanoTG/63483",
+    "tg:FabrizioRomanoTG/63484",
+    "tg:FabrizioRomanoTG/63487",
+    "tg:FabrizioRomanoTG/63488"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -618,7 +618,8 @@
     "summerville -> al-hilal": 2,
     "garnacho -> aston villa": 2,
     "summerville -> al hilal": 1,
-    "nduka -> manchester city": 3
+    "nduka -> manchester city": 3,
+    "flowers -> chelsea": 1
   },
   "interest": [
     "interest: alvarez -> arsenal",
@@ -729,9 +730,6 @@
     "interest: torres -> liverpool"
   ],
   "titles": [
-    "\ud83d\udea8 \ud83d\udd35 \ud83d\udd34 jules kounde on his future: \u201cwhat i want is to have a great season, so res",
-    "bayern munich news: real madrid\u2019s vinicius junior not on fc bayern\u2019s radar; xabi",
-    "\ud83d\udea8 \ud83d\udd35 \u26aa\ufe0f excl: hoffenheim have sent official bid to rb salzburg for winger adam da",
     "\ud83d\udea8 \ud83c\udde9\ud83c\uddea jurgen klopp, set to sign his official four year contract as new germany he",
     "\ud83d\udea8 official: pedri on the bench again for spain, fabian ruiz starts \ud83c\uddea\ud83c\uddf8 https://t ",
     "\ud83d\udea8 \ud83c\udde6\ud83c\uddf7 official: julian alvarez starts for argentina, lautaro martinez on the benc",
@@ -1028,7 +1026,10 @@
     "\ud83d\udea8 \ud83d\udfe1 \ud83d\udd35 leeds united are advancing in talks to sign james trafford as newcastle we",
     "\ud83d\udd35 \ud83d\udd34 \ud83d\ude0e karim adeyemi arrives for his official signature at barcelona @victor_nahe",
     "\ud83d\udd34 \u26aa\ufe0f \ud83d\udc4b\ud83c\udffc official: christos tzolis joins arsenal from club brugge, deal confirmed",
-    "\ud83d\udfe3 \ud83d\udd35 \ud83c\udde6\ud83c\uddf7 exclusive story, confirmed: alejandro garnacho joins aston villa from che"
+    "\ud83d\udfe3 \ud83d\udd35 \ud83c\udde6\ud83c\uddf7 exclusive story, confirmed: alejandro garnacho joins aston villa from che",
+    "\ud83d\udea8 \ud83c\udde8\ud83c\uddf2 napoli director giovanni manna: \u201cwe trust zambo anguissa he\u2019s key player fo",
+    "\ud83d\udea8 \ud83c\udde6\ud83c\uddf7 napoli have verbal agreement in place with exequiel zeballos on personal te",
+    "\ud83d\udea8 \ud83d\udd35 chelsea have agreed to sign usa talented winger benji flowers for their acad"
   ],
   "tg_update_offset": 263617426,
   "photos": {
@@ -1174,6 +1175,7 @@
     "franco mastantuono": "https://r2.thesportsdb.com/images/media/player/cutout/pgq83k1762604333.png/small",
     "mishel nduka": "",
     "joao cancelo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Joao_Cancelo_Croatia_v_Portugal_2_July_2026-002.jpg/330px-Joao_Cancelo_Croatia_v_Portugal_2_July_2026-002.jpg",
-    "ferran torres": ""
+    "ferran torres": "",
+    "benji flowers": ""
   }
 }
