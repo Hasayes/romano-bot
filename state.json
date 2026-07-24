@@ -1,7 +1,5 @@
 {
   "sent": [
-    "78c4e81854872887c56d175103541882",
-    "3090509dc823e488b399ea2355267045",
     "cfc9bb041c68ea4e633f65a85f21891e",
     "1a1e8098463bbe227c0ab573f3a1aab2",
     "b15353f2e282b606bc1177f9a8a56134",
@@ -499,7 +497,9 @@
     "b362907af05fe09ccee9232a58b8fd73",
     "b5e60ecc546088aa911ce42e2812c016",
     "6312f495fa88d50cf6fda60e28557794",
-    "87e62d3dda1f8451a076d4ed5652079a"
+    "87e62d3dda1f8451a076d4ed5652079a",
+    "b93273fdb442c3ddeeafdced0ded1824",
+    "58a01222e60fcc194f61ed2fe5cb5fef"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -621,7 +621,8 @@
     "nduka -> manchester city": 3,
     "flowers -> chelsea": 1,
     "healy -> newcastle": 3,
-    "diawara -> milan": 1
+    "diawara -> milan": 1,
+    "amondarain -> bologna": 3
   },
   "interest": [
     "interest: alvarez -> arsenal",
@@ -739,8 +740,6 @@
     "interest: fernandez -> manchester city"
   ],
   "titles": [
-    "fabrizio romano: man utd 'not advancing' for \u00a338m winger",
-    "bastoni targeted by al-hilal and former inter coach inzaghi",
     "liverpool get huge \u00a385m transfer boost as psg \u2018pass\u2019 on yan diomande transfer",
     "\u201ci can confirm \u201d \u2013 romano claims man united have plans to sign \u2018defensive\u2019 midfi",
     "ricci offered to juventus and atalanta as amorim reshapes milan midfield",
@@ -1038,7 +1037,9 @@
     "transfer: real reason i joined barcelona \u2013 adeyemi",
     "chelsea complete another \u2018historic\u2019 signing after garnacho transfer to aston vil",
     "chelsea finalise another \u2018historic\u2019 signing after morgan rogers \u2013 \u2018here we go\u2019",
-    "jurgen klopp set to be named german national team coach"
+    "jurgen klopp set to be named german national team coach",
+    "done deal: bologna secure amondarain despite nottingham forest interest",
+    "james pearce: liverpool want bradley barcola in 'massively exciting' deal"
   ],
   "tg_update_offset": 263617426,
   "photos": {
@@ -1193,6 +1194,7 @@
     "zeno debast": "https://r2.thesportsdb.com/images/media/player/cutout/xlp81e1716408284.png/small",
     "sankhoun diawara": "",
     "kerim alajbegovic": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Jahresbeginnfeier_FC_RB_Salzburg_%282026-01-25_RB_Arena%29_10.jpg/330px-Jahresbeginnfeier_FC_RB_Salzburg_%282026-01-25_RB_Arena%29_10.jpg",
-    "enzo fernandez": "https://r2.thesportsdb.com/images/media/player/cutout/b71vun1757003115.png/small"
+    "enzo fernandez": "https://r2.thesportsdb.com/images/media/player/cutout/b71vun1757003115.png/small",
+    "mikel amondarain": "https://r2.thesportsdb.com/images/media/player/cutout/rfxt551763386386.png/small"
   }
 }

@@ -1,5 +1,24 @@
 [
  {
+  "id": "b93273fdb442c3ddeeafdced0ded1824",
+  "ts": "2026-07-24T04:40:27+00:00",
+  "kind": "deal",
+  "photo": "https://r2.thesportsdb.com/images/media/player/cutout/rfxt551763386386.png/small",
+  "stage": "Completed",
+  "player": "Mikel Amondarain",
+  "position": "Midfielder",
+  "age": "\u2014",
+  "from_club": "Estudiantes",
+  "to_club": "Bologna",
+  "fee": "Undisclosed",
+  "style": "\u2014",
+  "fit": "\u2014",
+  "source": "football-italia",
+  "outlet": "football-italia",
+  "url": "https://football-italia.net/bologna-secure-amondarain-nottingham-forest/",
+  "title": "Done Deal: Bologna secure Amondarain despite Nottingham Forest interest"
+ },
+ {
   "id": "4784f011360200bdd9a348e5a51e3cbf",
   "ts": "2026-07-24T00:45:34+00:00",
   "kind": "interest",
