@@ -1,7 +1,5 @@
 {
   "sent": [
-    "965fc4f72668680dbd1c5feb2ed722e7",
-    "4fe3466a0f96f4f50c6c811b994e951d",
     "1ae5b47b8120857909a4ef1890b233a8",
     "ae27a828b14cd7fbb85d3a56a46498b7",
     "2a423dd459df935f9270b705893f2c0b",
@@ -499,7 +497,9 @@
     "tg:FabrizioRomanoTG/63509",
     "tg:FabrizioRomanoTG/63510",
     "91b87705bc2aaa294292c5e52c2dc992",
-    "tg:FabrizioRomanoTG/63511"
+    "tg:FabrizioRomanoTG/63511",
+    "79d09d9765b641db0c10072b8fef97af",
+    "a38f0ec82a1e8ca9aa13cb82fe05eee7"
   ],
   "deals": {
     "thompson -> arsenal": 3,
@@ -740,7 +740,6 @@
     "interest: fernandez -> manchester city"
   ],
   "titles": [
-    "\ud83d\udea8 reports: priciest deal of the summer! england star joins for \u20ac137m",
     "serie a giants expected to sign tottenham target who recorded 4 g/a in the world",
     "manchester united in talks to sign crystal palace's ismaila sarr",
     "super eagles star lands in italy for record venezia move",
@@ -1039,7 +1038,8 @@
     "\ud83d\udea8 \ud83c\udde9\ud83c\uddea jurgen klopp has signed his contract as new germany head coach, today is th",
     "\ud83d\udea8 \u26ab\ufe0f \ud83d\udd35 understand inter had initial direct contact with cristian romero\u2019s camp t",
     "arsenal to make \u00a370 million offer for bruno guimaraes: details",
-    "\ud83d\udea8 \ud83e\ude75 josko gvardiol has already signed new long term deal at manchester city jere"
+    "\ud83d\udea8 \ud83e\ude75 josko gvardiol has already signed new long term deal at manchester city jere",
+    "arsenal transfer news: gunners agree personal terms with newcastle united star b"
   ],
   "tg_update_offset": 263617426,
   "photos": {
